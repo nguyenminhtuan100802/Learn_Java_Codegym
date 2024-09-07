@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class DayOfMonth {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        double a = 3.5;
 
         System.out.println("Enter month you want to check: ");
         int month = input.nextInt();
