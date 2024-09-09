@@ -1,4 +1,4 @@
-package Codegym;
+package Codegym.JavaBasic;
 
 public class VariableDataType {
     public static void main(String[] args) {
