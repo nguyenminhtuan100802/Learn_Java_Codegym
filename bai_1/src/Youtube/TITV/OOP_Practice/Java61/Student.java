@@ -7,6 +7,8 @@ public class Student {
     protected String fullName;
     protected int yearOfBirth;
     protected double averageScore;
+    protected String userName;
+    protected String password;
 
     public Student(){}
     public Student(String id, String fullName, int yearOfBirth, double averageScore) {
@@ -14,6 +16,8 @@ public class Student {
         this.fullName = fullName;
         this.yearOfBirth = yearOfBirth;
         this.averageScore = averageScore;
+        this.userName = id;
+        this.password = id;
     }
 
     public String getId() {
@@ -48,9 +52,25 @@ public class Student {
         this.averageScore = averageScore;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
-        return " id:" + this.id + "--fullName:" + this.fullName + "--yearOfBirth:" + this.yearOfBirth + "--averageScore:" + this.averageScore;
+        return " id:" + this.id + "--fullName:" + this.fullName + "--yearOfBirth:" + this.yearOfBirth + "--averageScore:" + this.averageScore + "--userName:" + this.userName + "--password:" + this.password;
     }
 
     public Student createNewStudent() {

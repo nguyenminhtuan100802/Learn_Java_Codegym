@@ -1,4 +1,4 @@
-package Youtube.TITV.OOP_Practice.Java61;
+package Youtube.TITV.OOP_Practice.Java61.EnumUserChoice;
 
 public enum UserChoice {
     ADD_NEW_STUDENT(1),
