@@ -16,7 +16,7 @@ public class Student {
         this.fullName = fullName;
         this.yearOfBirth = yearOfBirth;
         this.averageScore = averageScore;
-        this.userName = id;
+        this.userName = "student" + id;
         this.password = id;
     }
 
@@ -70,7 +70,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return " id:" + this.id + "--fullName:" + this.fullName + "--yearOfBirth:" + this.yearOfBirth + "--averageScore:" + this.averageScore + "--userName:" + this.userName + "--password:" + this.password;
+        return " id:" + this.id + " || fullName:" + this.fullName + " || yearOfBirth:" + this.yearOfBirth + " || averageScore:" + this.averageScore + " || userName:" + this.userName + " || password:" + this.password;
     }
 
     public Student createNewStudent() {

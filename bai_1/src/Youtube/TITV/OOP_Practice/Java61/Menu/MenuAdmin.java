@@ -1,20 +1,8 @@
-package Youtube.TITV.OOP_Practice.Java61;
+package Youtube.TITV.OOP_Practice.Java61.Menu;
 
-public class MenuAdmin {
-    private final String ANSI_RESET = "\u001B[0m";
-    private final String ANSI_YELLOW = "\u001B[33m";
+import java.awt.*;
 
-    public void drawMenuLogin(){
-        System.out.println("===============" + this.ANSI_YELLOW + " LOGIN " + ANSI_RESET + "===============");
-        System.out.println("1. Login as admin");
-        System.out.println("2. Login as teacher");
-        System.out.println("3. Login as student");
-        System.out.println("4. Register for teacher");
-        System.out.println("5. Register for student");
-        System.out.println("6. Forgot password");
-        System.out.println("15. Quit program");
-        System.out.println("===============" + ANSI_YELLOW + " END " + ANSI_RESET + "===============");
-    }
+public class MenuAdmin extends MenuLogin {
     public void drawMenuHome(){
         System.out.println("===============" + ANSI_YELLOW + " LOGIN > HOME " + ANSI_RESET + "===============");
         System.out.println("1. Add new student");
@@ -24,6 +12,7 @@ public class MenuAdmin {
         System.out.println("5. Find students");
         System.out.println("6. Remove a student");
         System.out.println("7. Sort");
+        System.out.println("8. Edit student ");
         System.out.println("15. Return login");
         System.out.println("===============" + ANSI_YELLOW + " END " + ANSI_RESET + "===============");
     }
@@ -51,6 +40,19 @@ public class MenuAdmin {
         System.out.println("2. Sort descending by average score");
         System.out.println("3. Show all students");
         System.out.println("4. Return home");
+        System.out.println("===============" + ANSI_YELLOW + " END " + ANSI_RESET + "===============");
+    }
+    public void drawMenuEditStudent(){
+        System.out.println("===============" + ANSI_YELLOW + " LOGIN > HOME > EDIT STUDENT " + ANSI_RESET + "===============");
+        System.out.println("1. Edit id");
+        System.out.println("2. Edit name");
+        System.out.println("3. Edit year of birth");
+        System.out.println("4. Edit score");
+        System.out.println("5. Edit id, name, yob, score");
+        System.out.println("6. Edit user name");
+        System.out.println("7. Edit password");
+        System.out.println("9. Show all students");
+        System.out.println("10. Return home");
         System.out.println("===============" + ANSI_YELLOW + " END " + ANSI_RESET + "===============");
     }
 }

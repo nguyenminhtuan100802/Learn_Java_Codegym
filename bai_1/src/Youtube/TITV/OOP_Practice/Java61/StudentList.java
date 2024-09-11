@@ -37,6 +37,23 @@ public class StudentList {
             System.out.println("Student " + id + " not found");
         }
     }
+    public void setStudentId(String oldId, String newId) {
+        for (int i = 0; i < this.studentArrayList.size(); i++) {
+            if (this.studentArrayList.get(i).getId().equals(oldId)) {
+                this.studentArrayList.get(i).setId(newId);
+                System.out.println("Student after edit id:" + this.studentArrayList.get(i).toString());
+            }
+        }
+    }
+    public String getStudentByID(String id) {
+        for (int i = 0; i < this.studentArrayList.size(); i++) {
+            if (this.studentArrayList.get(i).getId().equals(id)) {
+                return studentArrayList.get(i).toString();
+            }
+        }
+        return null;
+    }
+
     public void findStudentsByName(String name) {
         boolean isFound = false;
         for (int i = 0; i < this.studentArrayList.size(); i++) {
@@ -49,6 +66,7 @@ public class StudentList {
             System.out.println("Student " + name + " not found");
         }
     }
+
     public void findStudentsByYearOfBirth(int yearOfBirth) {
         boolean isFound = false;
         for (int i = 0; i < this.studentArrayList.size(); i++) {
