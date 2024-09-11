@@ -1,4 +1,4 @@
-package Codegym.ClassObject;
+package Codegym.ClassObject.Rectangle;
 
 public class Rectangle {
     double width;
