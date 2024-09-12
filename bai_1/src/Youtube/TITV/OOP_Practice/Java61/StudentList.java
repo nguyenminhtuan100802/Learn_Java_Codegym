@@ -1,5 +1,6 @@
 package Youtube.TITV.OOP_Practice.Java61;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class StudentList {
@@ -18,8 +19,19 @@ public class StudentList {
         return this.studentArrayList.isEmpty();
     }
     public void printStudents() {
+        this.saveStudentsToFile();
+        System.out.println("------------------ Student List ------------------");
+        System.out.printf("%-5s %-20s %-15s %-10s %-15s %-15s%n",
+                "ID", "Name", "Year of birth", "Score", "Username", "Password");
         for (int i = 0; i < this.studentArrayList.size(); i++) {
-            System.out.println("Student " + (i + 1) + this.studentArrayList.get(i).toString());
+//            System.out.println("Student " + (i + 1) + this.studentArrayList.get(i).toString());
+            System.out.printf("%-5s %-20s %-15s %-10s %-15s %-15s%n",
+                    this.studentArrayList.get(i).getId(),
+                    this.studentArrayList.get(i).getFullName(),
+                    this.studentArrayList.get(i).getYearOfBirth(),
+                    this.studentArrayList.get(i).getAverageScore(),
+                    this.studentArrayList.get(i).getUserName(),
+                    this.studentArrayList.get(i).getPassword());
         }
     }
     public void ClearAllStudents(){
@@ -144,4 +156,132 @@ public class StudentList {
         }
     }
 
+    public void saveStudentsToFile(){
+        try {
+            File file = new File("E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\Youtube\\TITV\\OOP_Practice\\Java61\\file.data");
+            OutputStream outputStream = new FileOutputStream(file);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+//            Student student = new Student("1", "tuan", 2000, 9);
+//            objectOutputStream.writeObject(student);
+            for (int i = 0; i < this.studentArrayList.size(); i++) {
+                objectOutputStream.writeObject(studentArrayList.get(i));
+            }
+            objectOutputStream.flush();
+            objectOutputStream.close();
+
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void loadStudentsFromFile() {
+        File file = new File("E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\Youtube\\TITV\\OOP_Practice\\Java61\\file.data");
+
+        // Kiểm tra xem tệp có tồn tại hay không
+        if (!file.exists()) {
+            System.out.println("File not found, creating a new file.");
+            try {
+                // Tạo thư mục chứa tệp nếu nó không tồn tại
+                file.getParentFile().mkdirs();
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + file.getPath());
+                } else {
+                    System.out.println("Failed to create file: " + file.getPath());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        // Đọc tệp nếu tệp tồn tại
+        try (FileInputStream fis = new FileInputStream(file);
+             ObjectInputStream objectInputStream = new ObjectInputStream(fis)) {
+
+            while (true) {
+                try {
+                    // Đọc từng đối tượng từ file
+                    Object object = objectInputStream.readObject();
+                    if (object instanceof Student) {
+                        Student student = (Student) object;
+                        studentArrayList.add(student);
+                    }
+                } catch (EOFException e) {
+                    // Đã đọc hết file, thoát khỏi vòng lặp
+                    break;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + file.getPath());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+//    public void loadStudentsFromFile(){
+//        File file = new File("E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\Youtube\\TITV\\OOP_Practice\\Java61\\file.data");
+//        if (!file.exists()) {
+//            System.out.println("File not found, creating a new file: ");
+//            // Tạo tệp nếu nó không tồn tại
+//            try {
+//                if (file.createNewFile()) {
+//                    System.out.println("File created: ");
+//                } else {
+//                    System.out.println("Failed to create file: ");
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                return;
+//            }
+//        }
+//
+//        // Tiếp tục với quá trình đọc tệp nếu tệp tồn tại
+//        try (FileInputStream fis = new FileInputStream(file);
+//             ObjectInputStream objectInputStream = new ObjectInputStream(fis)) {
+//
+//            Student student = null;
+//            while (true){
+//                Object object = objectInputStream.readObject();
+//                if (object == null){
+//                    break;
+//                }
+//                if (object != null){
+//                    student = (Student) object;
+//                    this.studentArrayList.add(student);
+//                }
+//
+//            }
+//
+//            objectInputStream.close();
+//        } catch (FileNotFoundException e) {
+//            System.out.println("File not found: ");
+//        } catch (IOException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+////        try {
+////            InputStream inputStream = new FileInputStream(file);
+////            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+////
+////            Student student = null;
+////            while (true){
+////                Object object = objectInputStream.readObject();
+////                if (object == null){
+////                    break;
+////                }
+////                if (object != null){
+////                    student = (Student) object;
+////                    this.studentArrayList.add(student);
+////                }
+////
+////            }
+////
+////            objectInputStream.close();
+////
+////
+////        } catch (IOException | ClassNotFoundException e) {
+////            throw new RuntimeException(e);
+////        }
+//    }
 }

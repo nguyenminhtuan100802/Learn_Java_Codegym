@@ -1,6 +1,4 @@
-package Youtube.TITV.OOP_Practice.Java61.Menu;
-
-import java.awt.*;
+package Youtube.TITV.OOP_Practice.Java61.menu;
 
 public class MenuAdmin extends MenuLogin {
     public void drawMenuHome(){

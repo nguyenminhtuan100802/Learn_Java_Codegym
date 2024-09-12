@@ -1,8 +1,9 @@
 package Youtube.TITV.OOP_Practice.Java61;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Student {
+public class Student implements Serializable {
     protected String id;
     protected String fullName;
     protected int yearOfBirth;

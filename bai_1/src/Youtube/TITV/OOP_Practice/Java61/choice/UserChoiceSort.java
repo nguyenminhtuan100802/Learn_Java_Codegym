@@ -1,4 +1,4 @@
-package Youtube.TITV.OOP_Practice.Java61.EnumUserChoice;
+package Youtube.TITV.OOP_Practice.Java61.choice;
 
 public enum UserChoiceSort {
     SORT_ASCENDING_BY_SCORE(1),

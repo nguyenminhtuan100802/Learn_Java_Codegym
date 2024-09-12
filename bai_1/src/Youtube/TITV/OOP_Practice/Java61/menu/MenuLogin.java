@@ -1,4 +1,4 @@
-package Youtube.TITV.OOP_Practice.Java61.Menu;
+package Youtube.TITV.OOP_Practice.Java61.menu;
 
 public class MenuLogin {
     protected final String ANSI_RESET = "\u001B[0m";

@@ -1,7 +1,7 @@
 package Youtube.TITV.OOP_Practice.Java61;
 
-import Youtube.TITV.OOP_Practice.Java61.EnumUserChoice.*;
-import Youtube.TITV.OOP_Practice.Java61.Menu.MenuAdmin;
+import Youtube.TITV.OOP_Practice.Java61.choice.*;
+import Youtube.TITV.OOP_Practice.Java61.menu.MenuAdmin;
 
 import java.util.Scanner;
 
