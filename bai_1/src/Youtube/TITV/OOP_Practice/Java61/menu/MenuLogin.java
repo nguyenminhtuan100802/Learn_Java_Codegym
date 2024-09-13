@@ -1,6 +1,6 @@
 package Youtube.TITV.OOP_Practice.Java61.menu;
 
-public class MenuLogin {
+public abstract class MenuLogin implements Menu{
     protected final String ANSI_RESET = "\u001B[0m";
     protected final String ANSI_YELLOW = "\u001B[33m";
     public void drawMenuLogin(){
@@ -14,5 +14,4 @@ public class MenuLogin {
         System.out.println("10. Quit program");
         System.out.println("===============" + ANSI_YELLOW + " END " + ANSI_RESET + "===============");
     }
-
 }
