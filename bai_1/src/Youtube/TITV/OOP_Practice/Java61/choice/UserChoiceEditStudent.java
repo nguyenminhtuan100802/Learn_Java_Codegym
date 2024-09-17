@@ -11,7 +11,7 @@ public enum UserChoiceEditStudent {
     SHOW_ALL(9),
     RETURN_HOME(10);
 
-    public int value;
+    public final int value;
     private UserChoiceEditStudent(int value){
         this.value = value;
     }

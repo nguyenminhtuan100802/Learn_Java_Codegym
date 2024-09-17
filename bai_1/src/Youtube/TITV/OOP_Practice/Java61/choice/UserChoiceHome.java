@@ -11,7 +11,7 @@ public enum UserChoiceHome {
     EDIT_STUDENT(8),
     RETURN_LOGIN(15);
 
-    public int value;
+    public final int value;
     private UserChoiceHome(int value){
         this.value = value;
     }

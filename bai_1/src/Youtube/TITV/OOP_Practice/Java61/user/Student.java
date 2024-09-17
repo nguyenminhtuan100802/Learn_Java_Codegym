@@ -8,8 +8,7 @@ public class Student implements Serializable {
     protected String fullName;
     protected int yearOfBirth;
     protected double averageScore;
-    protected String userName;
-    protected String password;
+    protected Account account;
 
     public Student(){}
     public Student(String id, String fullName, int yearOfBirth, double averageScore) {
@@ -17,8 +16,9 @@ public class Student implements Serializable {
         this.fullName = fullName;
         this.yearOfBirth = yearOfBirth;
         this.averageScore = averageScore;
-        this.userName = "student" + id;
-        this.password = id;
+        this.account = new Account();
+        this.account.setUserName("student" + this.id);
+        this.account.setPassword("student" + this.id);
     }
 
     public String getId() {
@@ -53,25 +53,22 @@ public class Student implements Serializable {
         this.averageScore = averageScore;
     }
 
-    public String getPassword() {
-        return password;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override
     public String toString() {
-        return " id:" + this.id + " || fullName:" + this.fullName + " || yearOfBirth:" + this.yearOfBirth + " || averageScore:" + this.averageScore + " || userName:" + this.userName + " || password:" + this.password;
+        return " id:" + this.id +
+                " || fullName:" + this.fullName +
+                " || yearOfBirth:" + this.yearOfBirth +
+                " || averageScore:" + this.averageScore +
+                " || userName:" + this.account.getUserName() +
+                " || password:" + this.account.getPassword();
     }
 
     public Student createNewStudent() {

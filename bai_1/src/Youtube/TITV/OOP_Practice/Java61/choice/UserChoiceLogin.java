@@ -8,7 +8,7 @@ public enum UserChoiceLogin {
     REGISTER_AS_STUDENT(5),
     FORGOT_PASSWORD(6),
     QUIT_PROGRAM(10);
-    public int value;
+    public final int value;
     private UserChoiceLogin(int value){
         this.value = value;
     }

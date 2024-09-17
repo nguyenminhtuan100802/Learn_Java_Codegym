@@ -39,7 +39,7 @@ public class Admin {
                 studentList.printStudents();
             }
             else if (choiceHome == UserChoiceHome.CLEAR_ALL.value){
-                studentList.ClearAllStudents();
+                studentList.clearAllStudents();
             }
             else if (choiceHome == UserChoiceHome.FIND_STUDENTS.value){
                 this.findStudents(studentList);
@@ -123,11 +123,10 @@ public class Admin {
             int choiceSort = new Scanner(System.in).nextInt();
 
             if (choiceSort == UserChoiceSort.SORT_ASCENDING_BY_SCORE.value){
-                studentList.sortAscendingByScore();
+                studentList.sortByScore("ascend");
             }
             else if (choiceSort == UserChoiceSort.SORT_DESCENDING_BY_SCORE.value) {
-                System.out.println("sort descending by score");
-                studentList.sortDescendingByScore();
+                studentList.sortByScore("descend");
             }
             else if (choiceSort == UserChoiceSort.SHOW_ALL.value) {
                 studentList.printStudents();

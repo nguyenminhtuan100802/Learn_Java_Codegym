@@ -6,7 +6,7 @@ public enum UserChoiceSort {
     SHOW_ALL(3),
     RETURN_HOME(4);
 
-    public int value;
+    public final int value;
     private UserChoiceSort(int value){
         this.value = value;
     }

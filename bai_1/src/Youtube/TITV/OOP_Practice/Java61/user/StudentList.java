@@ -25,18 +25,27 @@ public class StudentList {
         System.out.printf("%-5s %-20s %-15s %-10s %-15s %-15s%n",
                 "ID", "Name", "Year of birth", "Score", "Username", "Password");
         for (int i = 0; i < this.studentArrayList.size(); i++) {
-//            System.out.println("Student " + (i + 1) + this.studentArrayList.get(i).toString());
             System.out.printf("%-5s %-20s %-15s %-10s %-15s %-15s%n",
                     this.studentArrayList.get(i).getId(),
                     this.studentArrayList.get(i).getFullName(),
                     this.studentArrayList.get(i).getYearOfBirth(),
                     this.studentArrayList.get(i).getAverageScore(),
-                    this.studentArrayList.get(i).getUserName(),
-                    this.studentArrayList.get(i).getPassword());
+                    this.studentArrayList.get(i).getAccount().getUserName(),
+                    this.studentArrayList.get(i).getAccount().getPassword());
         }
     }
-    public void ClearAllStudents(){
+    public void clearAllStudents(){
         this.studentArrayList.clear();
+    }
+
+    public Student verifyStudentAccountByUsernameAndPassword(String username, String password) {
+        for (int i = 0; i < this.studentArrayList.size(); i++) {
+            if (studentArrayList.get(i).getAccount().getUserName().equals(username) &&
+                    studentArrayList.get(i).getAccount().getPassword().equals(password)) {
+                return this.studentArrayList.get(i);
+            }
+        }
+        return null;
     }
     public void findStudentsByID(String id) {
         boolean isFound = false;
@@ -134,24 +143,22 @@ public class StudentList {
             System.out.println("Student " + yearOfBirth + " not found");
         }
     }
-    public void sortAscendingByScore(){
+    public void sortByScore(String sortType){
         for (int i = 0; i < this.studentArrayList.size(); i++) {
             for (int j = i + 1; j < this.studentArrayList.size(); j++) {
-                if (studentArrayList.get(i).getAverageScore() > studentArrayList.get(j).getAverageScore()) {
-                    Student temp = studentArrayList.get(i);
-                    studentArrayList.set(i, studentArrayList.get(j));
-                    studentArrayList.set(j, temp);
+                if (sortType.equals("ascend")){
+                    if (studentArrayList.get(i).getAverageScore() > studentArrayList.get(j).getAverageScore()) {
+                        Student temp = studentArrayList.get(i);
+                        studentArrayList.set(i, studentArrayList.get(j));
+                        studentArrayList.set(j, temp);
+                    }
                 }
-            }
-        }
-    }
-    public void sortDescendingByScore(){
-        for (int i = 0; i < this.studentArrayList.size(); i++) {
-            for (int j = i + 1; j < this.studentArrayList.size(); j++) {
-                if (studentArrayList.get(i).getAverageScore() < studentArrayList.get(j).getAverageScore()) {
-                    Student temp = studentArrayList.get(i);
-                    studentArrayList.set(i, studentArrayList.get(j));
-                    studentArrayList.set(j, temp);
+                else if (sortType.equals("descend")){
+                    if (studentArrayList.get(i).getAverageScore() < studentArrayList.get(j).getAverageScore()) {
+                        Student temp = studentArrayList.get(i);
+                        studentArrayList.set(i, studentArrayList.get(j));
+                        studentArrayList.set(j, temp);
+                    }
                 }
             }
         }
@@ -220,69 +227,4 @@ public class StudentList {
             e.printStackTrace();
         }
     }
-//    public void loadStudentsFromFile(){
-//        File file = new File("E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\Youtube\\TITV\\OOP_Practice\\Java61\\file.data");
-//        if (!file.exists()) {
-//            System.out.println("File not found, creating a new file: ");
-//            // Tạo tệp nếu nó không tồn tại
-//            try {
-//                if (file.createNewFile()) {
-//                    System.out.println("File created: ");
-//                } else {
-//                    System.out.println("Failed to create file: ");
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                return;
-//            }
-//        }
-//
-//        // Tiếp tục với quá trình đọc tệp nếu tệp tồn tại
-//        try (FileInputStream fis = new FileInputStream(file);
-//             ObjectInputStream objectInputStream = new ObjectInputStream(fis)) {
-//
-//            Student student = null;
-//            while (true){
-//                Object object = objectInputStream.readObject();
-//                if (object == null){
-//                    break;
-//                }
-//                if (object != null){
-//                    student = (Student) object;
-//                    this.studentArrayList.add(student);
-//                }
-//
-//            }
-//
-//            objectInputStream.close();
-//        } catch (FileNotFoundException e) {
-//            System.out.println("File not found: ");
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-////        try {
-////            InputStream inputStream = new FileInputStream(file);
-////            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-////
-////            Student student = null;
-////            while (true){
-////                Object object = objectInputStream.readObject();
-////                if (object == null){
-////                    break;
-////                }
-////                if (object != null){
-////                    student = (Student) object;
-////                    this.studentArrayList.add(student);
-////                }
-////
-////            }
-////
-////            objectInputStream.close();
-////
-////
-////        } catch (IOException | ClassNotFoundException e) {
-////            throw new RuntimeException(e);
-////        }
-//    }
 }

@@ -7,7 +7,7 @@ public enum UserChoiceFindStudents {
     SHOW_ALL(4),
     RETURN_HOME(5);
 
-    public int value;
+    public final int value;
     private UserChoiceFindStudents(int value){
         this.value = value;
     }

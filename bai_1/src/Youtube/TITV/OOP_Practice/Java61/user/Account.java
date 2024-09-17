@@ -1,6 +1,8 @@
 package Youtube.TITV.OOP_Practice.Java61.user;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
     private String userName;
     private String password;
 
