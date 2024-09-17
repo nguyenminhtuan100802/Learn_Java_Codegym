@@ -1,14 +1,9 @@
 package Youtube.TITV.OOP_Practice.Java61.choice;
 
-public enum UserChoiceFindStudents {
-    FIND_BY_ID(1),
-    FIND_BY_NAME(2),
-    FIND_BY_YOB(3),
-    SHOW_ALL(4),
-    RETURN_HOME(5);
-
-    public final int value;
-    private UserChoiceFindStudents(int value){
-        this.value = value;
-    }
+public interface UserChoiceFindStudents {
+    int FIND_BY_ID = 1;
+    int FIND_BY_NAME = 2;
+    int FIND_BY_YOB = 3;
+    int SHOW_ALL = 4;
+    int RETURN_HOME = 5;
 }

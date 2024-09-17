@@ -1,18 +1,13 @@
 package Youtube.TITV.OOP_Practice.Java61.choice;
 
-public enum UserChoiceEditStudent {
-    EDIT_ID(1),
-    EDIT_NAME(2),
-    EDIT_YOB(3),
-    EDIT_SCORE(4),
-    EDIT_ID_NAME_YOB_SCORE(5),
-    EDIT_USERNAME(6),
-    EDIT_PASSWORD(7),
-    SHOW_ALL(9),
-    RETURN_HOME(10);
-
-    public final int value;
-    private UserChoiceEditStudent(int value){
-        this.value = value;
-    }
+public interface UserChoiceEditStudent {
+    int EDIT_ID = 1;
+    int EDIT_NAME=2;
+    int EDIT_YOB=3;
+    int EDIT_SCORE=4;
+    int EDIT_ID_NAME_YOB_SCORE=5;
+    int EDIT_USERNAME=6;
+    int EDIT_PASSWORD=7;
+    int SHOW_ALL = 9;
+    int RETURN_HOME = 10;
 }

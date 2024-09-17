@@ -1,5 +1,7 @@
 package Youtube.TITV.OOP_Practice.Java61.user;
 
+import Youtube.TITV.OOP_Practice.Java61.mini_database.StudentDAO;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -13,14 +15,16 @@ public class StudentList {
         return this.studentArrayList.size();
     }
     public void addNewStudent(Student student) {
-        this.saveStudentsToFile();
-        this.studentArrayList.add(student);
+//        this.saveStudentsToFile();
+        this.saveStudentsToDatabase(student);
+//        this.studentArrayList.add(student);
     }
     public boolean isListEmpty() {
         return this.studentArrayList.isEmpty();
     }
     public void printStudents() {
-        this.saveStudentsToFile();
+//        this.saveStudentsToFile();
+        this.loadStudentsFromDatabase();
         System.out.println("------------------ Student List ------------------");
         System.out.printf("%-5s %-20s %-15s %-10s %-15s %-15s%n",
                 "ID", "Name", "Year of birth", "Score", "Username", "Password");
@@ -163,6 +167,13 @@ public class StudentList {
             }
         }
     }
+    public void loadStudentsFromDatabase(){
+        studentArrayList = StudentDAO.getInstance().getAll();
+    }
+    public void saveStudentsToDatabase(Student student){
+        StudentDAO.getInstance().insert(student);
+    }
+
 
     public void saveStudentsToFile(){
         try {

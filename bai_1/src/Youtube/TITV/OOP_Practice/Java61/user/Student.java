@@ -20,6 +20,15 @@ public class Student implements Serializable {
         this.account.setUserName("student" + this.id);
         this.account.setPassword("student" + this.id);
     }
+    public Student(String id, String fullName, int yearOfBirth, double averageScore, String username, String password) {
+        this.id = id;
+        this.fullName = fullName;
+        this.yearOfBirth = yearOfBirth;
+        this.averageScore = averageScore;
+        this.account = new Account();
+        this.account.setUserName(username);
+        this.account.setPassword(password);
+    }
 
     public String getId() {
         return id;

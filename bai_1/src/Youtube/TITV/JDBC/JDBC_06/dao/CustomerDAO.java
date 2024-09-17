@@ -1,40 +1,42 @@
 package Youtube.TITV.JDBC.JDBC_06.dao;
 
 import Youtube.TITV.JDBC.JDBC_06.dao.DAOInterface;
+import Youtube.TITV.JDBC.JDBC_06.model.Customer;
 
 import java.util.ArrayList;
 
-public class CustomerDAO implements DAOInterface {
+public class CustomerDAO implements DAOInterface<Customer> {
     public static CustomerDAO getInstance(){
         return new CustomerDAO();
     }
+
     @Override
-    public int insert(Object o) {
+    public int insert(Customer customer) {
         return 0;
     }
 
     @Override
-    public int update(Object o) {
+    public int update(Customer customer) {
         return 0;
     }
 
     @Override
-    public int delete(Object o) {
+    public int delete(Customer customer) {
         return 0;
     }
 
     @Override
-    public ArrayList getAll() {
+    public ArrayList<Customer> getAll() {
         return null;
     }
 
     @Override
-    public Object selectById(Object o) {
+    public Customer selectById(Customer customer) {
         return null;
     }
 
     @Override
-    public ArrayList selectByCondition(Object o) {
+    public ArrayList<Customer> selectByCondition(Customer customer) {
         return null;
     }
 }

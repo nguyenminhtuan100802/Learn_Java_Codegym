@@ -19,7 +19,7 @@ public class Application {
         Admin admin = new Admin();
         int choiceLogin = 0;
 
-        studentList.loadStudentsFromFile();
+        studentList.loadStudentsFromDatabase();
         while (true) {
             menuAdmin.drawMenuLogin();
             System.out.print("Enter your choice:");
@@ -31,7 +31,7 @@ public class Application {
                 System.out.println(ANSI_RED + "<!>Invalid choice, please enter number!" + ANSI_RESET);
             }
 
-            if (choiceLogin == UserChoiceLogin.LOGIN_AS_ADMIN.value){
+            if (choiceLogin == UserChoiceLogin.LOGIN_AS_ADMIN){
                 System.out.print("Enter your username:");
                 String userName = new Scanner(System.in).nextLine();
                 System.out.print("Enter your password:");
@@ -44,10 +44,10 @@ public class Application {
                     System.out.println("Username or password is incorrect");
                 }
             }
-            else if (choiceLogin == UserChoiceLogin.LOGIN_AS_TEACHER.value){
+            else if (choiceLogin == UserChoiceLogin.LOGIN_AS_TEACHER){
 
             }
-            else if (choiceLogin == UserChoiceLogin.LOGIN_AS_STUDENT.value){
+            else if (choiceLogin == UserChoiceLogin.LOGIN_AS_STUDENT){
                 System.out.print("Enter your username:");
                 String userName = new Scanner(System.in).nextLine();
                 System.out.print("Enter your password:");
@@ -61,7 +61,7 @@ public class Application {
 
                 }
             }
-            else if (choiceLogin == UserChoiceLogin.QUIT_PROGRAM.value){
+            else if (choiceLogin == UserChoiceLogin.QUIT_PROGRAM){
                 break;
             }
         }

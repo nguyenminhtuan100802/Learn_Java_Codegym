@@ -26,34 +26,34 @@ public class Admin {
             System.out.println("Enter your choice:");
             int choiceHome = new Scanner(System.in).nextInt();
 
-            if (choiceHome == UserChoiceHome.ADD_NEW_STUDENT.value){
+            if (choiceHome == UserChoiceHome.ADD_NEW_STUDENT){
                 Student student = new Student();
                 student = student.createNewStudent();
                 studentList.addNewStudent(student);
             }
-            else if (choiceHome == UserChoiceHome.CHECK_LIST_EMPTY.value){
+            else if (choiceHome == UserChoiceHome.CHECK_LIST_EMPTY){
                 if (studentList.isListEmpty()) System.out.println("There are " + studentList.getListSize() + " student in your list");
                 else System.out.println("There are " + studentList.getListSize() + " students in your list");
             }
-            else if (choiceHome == UserChoiceHome.SHOW_ALL.value){
+            else if (choiceHome == UserChoiceHome.SHOW_ALL){
                 studentList.printStudents();
             }
-            else if (choiceHome == UserChoiceHome.CLEAR_ALL.value){
+            else if (choiceHome == UserChoiceHome.CLEAR_ALL){
                 studentList.clearAllStudents();
             }
-            else if (choiceHome == UserChoiceHome.FIND_STUDENTS.value){
+            else if (choiceHome == UserChoiceHome.FIND_STUDENTS){
                 this.findStudents(studentList);
             }
-            else if (choiceHome == UserChoiceHome.REMOVE_STUDENT.value){
+            else if (choiceHome == UserChoiceHome.REMOVE_STUDENT){
                 this.removeStudent(studentList);
             }
-            else if (choiceHome == UserChoiceHome.SORT.value){
+            else if (choiceHome == UserChoiceHome.SORT){
                 this.sortStudents(studentList);
             }
-            else if (choiceHome == UserChoiceHome.EDIT_STUDENT.value) {
+            else if (choiceHome == UserChoiceHome.EDIT_STUDENT) {
                 this.editStudent(studentList);
             }
-            else if (choiceHome == UserChoiceHome.RETURN_LOGIN.value){
+            else if (choiceHome == UserChoiceHome.RETURN_LOGIN){
                 break;
             }
         }
@@ -64,25 +64,25 @@ public class Admin {
             System.out.println("Enter your choice:");
             int choiceFindStudents = new Scanner(System.in).nextInt();
 
-            if (choiceFindStudents == UserChoiceFindStudents.FIND_BY_ID.value){
+            if (choiceFindStudents == UserChoiceFindStudents.FIND_BY_ID){
                 System.out.print("Enter student ID:");
                 String inputID = new Scanner(System.in).nextLine();
                 studentList.findStudentsByID(inputID);
             }
-            else if (choiceFindStudents == UserChoiceFindStudents.FIND_BY_NAME.value){
+            else if (choiceFindStudents == UserChoiceFindStudents.FIND_BY_NAME){
                 System.out.print("Enter student name:");
                 String inputName = new Scanner(System.in).nextLine();
                 studentList.findStudentsByName(inputName);
             }
-            else if (choiceFindStudents == UserChoiceFindStudents.FIND_BY_YOB.value){
+            else if (choiceFindStudents == UserChoiceFindStudents.FIND_BY_YOB){
                 System.out.print("Enter student year of birth:");
                 int inputYearOfBirth = new Scanner(System.in).nextInt();
                 studentList.findStudentsByYearOfBirth(inputYearOfBirth);
             }
-            else if (choiceFindStudents == UserChoiceFindStudents.SHOW_ALL.value) {
+            else if (choiceFindStudents == UserChoiceFindStudents.SHOW_ALL) {
                 studentList.printStudents();
             }
-            else if (choiceFindStudents == UserChoiceFindStudents.RETURN_HOME.value) {
+            else if (choiceFindStudents == UserChoiceFindStudents.RETURN_HOME) {
                 break;
             }
         }
@@ -93,25 +93,25 @@ public class Admin {
             System.out.println("Enter your choice:");
             int choiceRemoveStudent = new Scanner(System.in).nextInt();
 
-            if (choiceRemoveStudent == UserChoiceRemoveStudents.REMOVE_BY_ID.value){
+            if (choiceRemoveStudent == UserChoiceRemoveStudents.REMOVE_BY_ID){
                 System.out.print("Enter student ID:");
                 String inputID = new Scanner(System.in).nextLine();
                 studentList.removeStudentByID(inputID);
             }
-            else if (choiceRemoveStudent == UserChoiceRemoveStudents.REMOVE_BY_NAME.value){
+            else if (choiceRemoveStudent == UserChoiceRemoveStudents.REMOVE_BY_NAME){
                 System.out.print("Enter student name:");
                 String inputName = new Scanner(System.in).nextLine();
                 studentList.removeStudentByName(inputName);
             }
-            else if (choiceRemoveStudent == UserChoiceRemoveStudents.REMOVE_BY_YOB.value){
+            else if (choiceRemoveStudent == UserChoiceRemoveStudents.REMOVE_BY_YOB){
                 System.out.print("Enter student year of birth:");
                 int inputYearOfBirth = new Scanner(System.in).nextInt();
                 studentList.removeStudentByYearOfBirth(inputYearOfBirth);
             }
-            else if (choiceRemoveStudent == UserChoiceRemoveStudents.SHOW_ALL.value) {
+            else if (choiceRemoveStudent == UserChoiceRemoveStudents.SHOW_ALL) {
                 studentList.printStudents();
             }
-            else if (choiceRemoveStudent == UserChoiceRemoveStudents.RETURN_HOME.value) {
+            else if (choiceRemoveStudent == UserChoiceRemoveStudents.RETURN_HOME) {
                 break;
             }
         }
@@ -122,16 +122,16 @@ public class Admin {
             System.out.println("Enter your choice:");
             int choiceSort = new Scanner(System.in).nextInt();
 
-            if (choiceSort == UserChoiceSort.SORT_ASCENDING_BY_SCORE.value){
+            if (choiceSort == UserChoiceSort.SORT_ASCENDING_BY_SCORE){
                 studentList.sortByScore("ascend");
             }
-            else if (choiceSort == UserChoiceSort.SORT_DESCENDING_BY_SCORE.value) {
+            else if (choiceSort == UserChoiceSort.SORT_DESCENDING_BY_SCORE) {
                 studentList.sortByScore("descend");
             }
-            else if (choiceSort == UserChoiceSort.SHOW_ALL.value) {
+            else if (choiceSort == UserChoiceSort.SHOW_ALL) {
                 studentList.printStudents();
             }
-            else if (choiceSort == UserChoiceSort.RETURN_HOME.value) {
+            else if (choiceSort == UserChoiceSort.RETURN_HOME) {
                 break;
             }
         }
@@ -142,7 +142,7 @@ public class Admin {
             System.out.print("Enter your choice:");
             int choiceEditStudent = new Scanner(System.in).nextInt();
 
-            if (choiceEditStudent == UserChoiceEditStudent.EDIT_ID.value){
+            if (choiceEditStudent == UserChoiceEditStudent.EDIT_ID){
                 System.out.print("Enter student ID you want to find:");
                 String inputID = new Scanner(System.in).nextLine();
 
@@ -158,11 +158,11 @@ public class Admin {
                     }
                 }
             }
-            else if (choiceEditStudent == UserChoiceEditStudent.SHOW_ALL.value) {
+            else if (choiceEditStudent == UserChoiceEditStudent.SHOW_ALL) {
                 studentList.printStudents();
 
             }
-            else if (choiceEditStudent == UserChoiceEditStudent.RETURN_HOME.value){
+            else if (choiceEditStudent == UserChoiceEditStudent.RETURN_HOME){
                 break;
             }
 

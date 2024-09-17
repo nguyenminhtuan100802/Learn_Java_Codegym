@@ -1,7 +1,6 @@
-package Youtube.TITV.JDBC.JDBC_06.database;
+package Youtube.TITV.OOP_Practice.Java61.mini_database;
 
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -12,7 +11,7 @@ public class JDBCUtil {
         try {
             // register mysql
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            String url = "jdbc:mysql://localhost:3306/bookstore";
+            String url = "jdbc:mysql://localhost:3306/student_management";
             String user = "root";
             String password = "";
 
@@ -37,16 +36,4 @@ public class JDBCUtil {
         }
     }
 
-    public static void printInfo(Connection connection){
-        if (connection != null) {
-            try {
-                DatabaseMetaData mtdt = connection.getMetaData();
-                System.out.println(mtdt.getDatabaseProductName());
-                System.out.println(mtdt.getDatabaseProductVersion());
-            }
-            catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 }
