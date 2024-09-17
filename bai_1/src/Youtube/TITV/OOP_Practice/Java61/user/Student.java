@@ -80,7 +80,7 @@ public class Student implements Serializable {
                 " || password:" + this.account.getPassword();
     }
 
-    public Student createNewStudent() {
+    public static Student createNewStudent() {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter student ID: ");
         String id = input.nextLine();
@@ -92,5 +92,17 @@ public class Student implements Serializable {
         double averageScore = input.nextDouble();
 
         return new Student(id, fullName, yearOfBirth, averageScore);
+    }
+    public void login(StudentList studentList){
+        System.out.print("Enter your username:");
+        String userNameStudent = new Scanner(System.in).nextLine();
+        System.out.print("Enter your password:");
+        String passwordStudent = new Scanner(System.in).nextLine();
+
+        Student student = new Student();
+        student = studentList.verifyStudentAccount(userNameStudent, passwordStudent);
+        if (student != null) {
+            System.out.println("Student login successfully");
+        }
     }
 }

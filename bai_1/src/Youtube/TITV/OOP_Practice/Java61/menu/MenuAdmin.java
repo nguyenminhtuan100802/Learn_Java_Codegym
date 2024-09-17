@@ -1,6 +1,11 @@
 package Youtube.TITV.OOP_Practice.Java61.menu;
 
+import Youtube.TITV.OOP_Practice.Java61.mini_database.StudentDAO;
+
 public class MenuAdmin extends MenuLogin {
+    public static MenuAdmin getInstance(){
+        return new MenuAdmin();
+    }
     public void drawMenuHome(){
         System.out.println("===============" + ANSI_YELLOW + " LOGIN > HOME " + ANSI_RESET + "===============");
         System.out.println("1. Add new student");

@@ -15,53 +15,36 @@ public class Application {
 
     public static void runApplication() {
         StudentList studentList = new StudentList();
-        MenuAdmin menuAdmin = new MenuAdmin();
         Admin admin = new Admin();
+        Student student = new Student();
         int choiceLogin = 0;
 
         studentList.loadStudentsFromDatabase();
         while (true) {
-            menuAdmin.drawMenuLogin();
-            System.out.print("Enter your choice:");
+            boolean exit = false;
+            MenuAdmin.getInstance().drawMenuLogin();
             try {
+                System.out.print("Enter your choice:");
                 choiceLogin = new Scanner(System.in).nextInt();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 choiceLogin = 0;
                 System.out.println(ANSI_RED + "<!>Invalid choice, please enter number!" + ANSI_RESET);
             }
 
-            if (choiceLogin == UserChoiceLogin.LOGIN_AS_ADMIN){
-                System.out.print("Enter your username:");
-                String userName = new Scanner(System.in).nextLine();
-                System.out.print("Enter your password:");
-                String password = new Scanner(System.in).nextLine();
-                if (userName.equals(admin.getAccount().getUserName()) && password.equals(admin.getAccount().getPassword())){
-                    System.out.println("Admin login successfully");
-                    admin.manageStudents(studentList);
-                }
-                else {
-                    System.out.println("Username or password is incorrect");
-                }
+            switch (choiceLogin) {
+                case UserChoiceLogin.LOGIN_AS_ADMIN:
+                    admin.login(studentList);
+                    break;
+                case UserChoiceLogin.LOGIN_AS_TEACHER:
+                    break;
+                case UserChoiceLogin.LOGIN_AS_STUDENT:
+                    student.login(studentList);
+                    break;
+                case UserChoiceLogin.QUIT_PROGRAM:
+                    exit = true;
+                    break;
             }
-            else if (choiceLogin == UserChoiceLogin.LOGIN_AS_TEACHER){
-
-            }
-            else if (choiceLogin == UserChoiceLogin.LOGIN_AS_STUDENT){
-                System.out.print("Enter your username:");
-                String userName = new Scanner(System.in).nextLine();
-                System.out.print("Enter your password:");
-                String password = new Scanner(System.in).nextLine();
-
-                Student student = new Student();
-                student = studentList.verifyStudentAccountByUsernameAndPassword(userName, password);
-                if (student != null){
-                    System.out.println("Student login successfully");
-//
-
-                }
-            }
-            else if (choiceLogin == UserChoiceLogin.QUIT_PROGRAM){
+            if (exit){
                 break;
             }
         }

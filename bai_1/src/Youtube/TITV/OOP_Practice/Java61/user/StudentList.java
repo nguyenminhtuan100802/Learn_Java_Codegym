@@ -4,6 +4,7 @@ import Youtube.TITV.OOP_Practice.Java61.mini_database.StudentDAO;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class StudentList {
     ArrayList<Student> studentArrayList;
@@ -19,8 +20,13 @@ public class StudentList {
         this.saveStudentsToDatabase(student);
 //        this.studentArrayList.add(student);
     }
-    public boolean isListEmpty() {
-        return this.studentArrayList.isEmpty();
+    public void checkListEmpty() {
+        if (this.studentArrayList.isEmpty()){
+            System.out.println("There are 0 student in your list");
+        }
+        else {
+            System.out.println("There are " + this.studentArrayList.size() + " students in your list");
+        }
     }
     public void printStudents() {
 //        this.saveStudentsToFile();
@@ -42,7 +48,7 @@ public class StudentList {
         this.studentArrayList.clear();
     }
 
-    public Student verifyStudentAccountByUsernameAndPassword(String username, String password) {
+    public Student verifyStudentAccount(String username, String password) {
         for (int i = 0; i < this.studentArrayList.size(); i++) {
             if (studentArrayList.get(i).getAccount().getUserName().equals(username) &&
                     studentArrayList.get(i).getAccount().getPassword().equals(password)) {
@@ -51,16 +57,18 @@ public class StudentList {
         }
         return null;
     }
-    public void findStudentsByID(String id) {
+    public void findStudentsByID() {
+        System.out.print("Enter student ID:");
+        String inputID = new Scanner(System.in).nextLine();
         boolean isFound = false;
         for (int i = 0; i < this.studentArrayList.size(); i++) {
-            if (this.studentArrayList.get(i).getId().equals(id)) {
+            if (this.studentArrayList.get(i).getId().equals(inputID)) {
                 isFound = true;
                 System.out.println("Student " + (i + 1) + this.studentArrayList.get(i).toString());
             }
         }
         if (!isFound) {
-            System.out.println("Student " + id + " not found");
+            System.out.println("Student " + inputID + " not found");
         }
     }
     public void setStudentId(String oldId, String newId) {
@@ -80,29 +88,33 @@ public class StudentList {
         return null;
     }
 
-    public void findStudentsByName(String name) {
+    public void findStudentsByName() {
+        System.out.print("Enter student name:");
+        String inputName = new Scanner(System.in).nextLine();
         boolean isFound = false;
         for (int i = 0; i < this.studentArrayList.size(); i++) {
-            if (this.studentArrayList.get(i).getFullName().equals(name)) {
+            if (this.studentArrayList.get(i).getFullName().equals(inputName)) {
                 isFound = true;
                 System.out.println("Student " + (i + 1) + this.studentArrayList.get(i).toString());
             }
         }
         if (!isFound) {
-            System.out.println("Student " + name + " not found");
+            System.out.println("Student " + inputName + " not found");
         }
     }
 
-    public void findStudentsByYearOfBirth(int yearOfBirth) {
+    public void findStudentsByYearOfBirth() {
+        System.out.print("Enter student year of birth:");
+        int inputYearOfBirth = new Scanner(System.in).nextInt();
         boolean isFound = false;
         for (int i = 0; i < this.studentArrayList.size(); i++) {
-            if (this.studentArrayList.get(i).getYearOfBirth() == yearOfBirth) {
+            if (this.studentArrayList.get(i).getYearOfBirth() == inputYearOfBirth) {
                 isFound = true;
                 System.out.println("Student " + (i + 1) + this.studentArrayList.get(i).toString());
             }
         }
         if (!isFound) {
-            System.out.println("Student " + yearOfBirth + " not found");
+            System.out.println("Student " + inputYearOfBirth + " not found");
         }
     }
     public void removeStudentByID(String id) {
