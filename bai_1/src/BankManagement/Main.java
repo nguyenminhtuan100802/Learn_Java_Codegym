@@ -1,9 +1,10 @@
 package BankManagement;
 
-import BankManagement.Application.Application;
+import BankManagement.controller.ApplicationManagement;
 
 public class Main {
     public static void main(String[] args) {
-        Application.run();
+        ApplicationManagement applicationManagement = new ApplicationManagement();
+        applicationManagement.getApplicationService().run();
     }
 }

@@ -3,11 +3,18 @@ package BankManagement.model;
 public class User {
     private String fullName;
     private String phoneNumber;
-    private Account account;
-    public User(String fullName, String phoneNumber, Account account) {
+    private Account account = new Account();
+    public User(String fullName, String phoneNumber) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
-        this.account = account;
+        this.account.setUsername(fullName + phoneNumber);
+        this.account.setPassword(fullName + phoneNumber);
+    }
+    public User(String fullName, String phoneNumber, String username, String password) {
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.account.setUsername(username);
+        this.account.setPassword(password);
     }
 
     public String getFullName() {
@@ -36,10 +43,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "fullName='" + fullName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", account=" + account +
-                '}';
+        return "fullName: " + fullName + " || phoneNumber: " + phoneNumber + " || username: " + account.getUsername() + " || password: " + account.getPassword();
     }
 }
