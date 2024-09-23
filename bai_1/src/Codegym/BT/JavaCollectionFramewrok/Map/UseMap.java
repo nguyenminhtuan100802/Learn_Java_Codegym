@@ -1,4 +1,4 @@
-package Codegym.BT.JavaCollectionFramewrok;
+package Codegym.BT.JavaCollectionFramewrok.Map;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
