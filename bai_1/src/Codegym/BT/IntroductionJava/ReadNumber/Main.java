@@ -1,4 +1,4 @@
-package Codegym.BT.ReadNumber;
+package Codegym.BT.IntroductionJava.ReadNumber;
 
 import java.util.Scanner;
 

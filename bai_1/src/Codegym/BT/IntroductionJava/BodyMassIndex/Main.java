@@ -1,4 +1,4 @@
-package Codegym.BT.BodyMassIndex;
+package Codegym.BT.IntroductionJava.BodyMassIndex;
 
 import java.util.Scanner;
 

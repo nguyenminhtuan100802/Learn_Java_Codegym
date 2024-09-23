@@ -1,4 +1,4 @@
-package Codegym.BT.NamNhuan;
+package Codegym.BT.IntroductionJava.NamNhuan;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package Codegym.BT.ConvertMoney;
+package Codegym.BT.IntroductionJava.ConvertMoney;
 
 import java.util.Scanner;
 

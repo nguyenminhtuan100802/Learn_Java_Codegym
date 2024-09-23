@@ -1,4 +1,4 @@
-package Codegym.BT.DisplayHello;
+package Codegym.BT.IntroductionJava.DisplayHello;
 
 import java.util.Scanner;
 
