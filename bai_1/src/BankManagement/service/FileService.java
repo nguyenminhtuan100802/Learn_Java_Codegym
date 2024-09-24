@@ -16,7 +16,9 @@ public class FileService {
                 fileWriter.write(userArrayList.get(i).getFullName() + "-");
                 fileWriter.write(userArrayList.get(i).getPhoneNumber() + "-");
                 fileWriter.write(userArrayList.get(i).getAccount().getUsername() + "-");
-                fileWriter.write(userArrayList.get(i).getAccount().getPassword() + "|\n");
+                fileWriter.write(userArrayList.get(i).getAccount().getPassword() + "-");
+                fileWriter.write(userArrayList.get(i).getAccount().getPin() + "-");
+                fileWriter.write(userArrayList.get(i).getAccount().getBalance() + "|\n");
             }
             fileWriter.close();
         }
@@ -30,6 +32,8 @@ public class FileService {
         String phoneNumber = "";
         String userName = "";
         String password = "";
+        String pin = "";
+        String balance = "";
         ArrayList<User> userArrayList = new ArrayList<>();
 
         try {
@@ -54,8 +58,14 @@ public class FileService {
                 else if (count == 2 && (char)character != '-'){
                     userName += (char)character;
                 }
-                else if (count == 3 && (char)character != '-' && (char)character != '|'){
+                else if (count == 3 && (char)character != '-'){
                     password += (char)character;
+                }
+                else if (count == 4 && (char)character != '-'){
+                    pin += (char)character;
+                }
+                else if (count == 5 && (char)character != '-' && (char)character != '|'){
+                    balance += (char)character;
                 }
                 if ((char)character == '|'){
 //                    System.out.println();
@@ -63,8 +73,10 @@ public class FileService {
 //                    System.out.println("Phone: " + phoneNumber);
 //                    System.out.println("User Name: " + userName);
 //                    System.out.println("Password: " + password);
+//                    System.out.println("Pin: " + pin);
+//                    System.out.println("Balance: " + balance);
 
-                    userArrayList.add(new User(fullName, phoneNumber, userName, password));
+                    userArrayList.add(new User(fullName, phoneNumber, userName, password, pin, Double.parseDouble(balance)));
 
                     count = 0;
                     fullName = "";

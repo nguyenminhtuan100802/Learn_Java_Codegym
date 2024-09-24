@@ -2,7 +2,7 @@ package BankManagement.service;
 
 import BankManagement.variable.Choice.Choice;
 import BankManagement.variable.TextColor.TextColor;
-import BankManagement.variable.UserChoice.UserChoiceLogin;
+import BankManagement.variable.ChoiceFromUser.ChoiceLogin;
 
 import java.util.Scanner;
 
@@ -34,6 +34,7 @@ public class ApplicationService {
     public void run(){
         while (true) {
             boolean isExit = false;
+            userService.setUserArrayList(FileService.loadUserFromFile());
             System.out.println("=================" + TextColor.YELLOW + " LOGIN " + TextColor.END_COLOR + "=================");
             System.out.println("1. Login as admin");
             System.out.println("2. Login as user");
@@ -42,17 +43,18 @@ public class ApplicationService {
             System.out.print("Enter your choice:");
             Choice.login = new Scanner(System.in).nextInt();
             switch (Choice.login) {
-                case UserChoiceLogin.LOGIN_AS_ADMIN:
+                case ChoiceLogin.LOGIN_AS_ADMIN:
                     adminService.login(userService);
                     break;
-                case UserChoiceLogin.LOGIN_AS_USER:
+                case ChoiceLogin.LOGIN_AS_USER:
+                    userService.login();
                     break;
-                case UserChoiceLogin.EXIT:
+                case ChoiceLogin.EXIT:
                     isExit = true;
                     break;
             }
             if (isExit) {
-                System.out.println(TextColor.YELLOW + "See you again <3" + TextColor.END_COLOR);
+                System.out.println(TextColor.BLUE + "See you again <3" + TextColor.END_COLOR);
                 break;
             }
         }

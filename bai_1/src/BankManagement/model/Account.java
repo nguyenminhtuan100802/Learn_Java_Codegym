@@ -4,7 +4,11 @@ public class Account {
     private String username;
     private String password;
     private double balance;
-    public Account(){}
+    private String pin;
+    public Account(){
+        this.balance = 0;
+        this.pin = "";
+    }
     public Account(String username, String password, double balance) {
         this.username = username;
         this.password = password;
@@ -33,6 +37,14 @@ public class Account {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
     }
 
     @Override

@@ -10,11 +10,13 @@ public class User {
         this.account.setUsername(fullName + phoneNumber);
         this.account.setPassword(fullName + phoneNumber);
     }
-    public User(String fullName, String phoneNumber, String username, String password) {
+    public User(String fullName, String phoneNumber, String username, String password, String pin, double balance) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.account.setUsername(username);
         this.account.setPassword(password);
+        this.account.setPin(pin);
+        this.account.setBalance(balance);
     }
 
     public String getFullName() {
@@ -45,4 +47,5 @@ public class User {
     public String toString() {
         return "fullName: " + fullName + " || phoneNumber: " + phoneNumber + " || username: " + account.getUsername() + " || password: " + account.getPassword();
     }
+
 }
