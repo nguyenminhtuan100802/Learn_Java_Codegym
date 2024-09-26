@@ -1,13 +1,19 @@
 package BankManagement.model;
 
+import BankManagement.service.TransactionService;
+
 public class Account {
-    private String username;
-    private String password;
-    private double balance;
-    private String pin;
+    protected String username;
+    protected String password;
+    protected double balance;
+    protected String pin;
     public Account(){
         this.balance = 0;
         this.pin = "";
+    }
+    public Account(String username, String password){
+        this.username = username;
+        this.password = password;
     }
     public Account(String username, String password, double balance) {
         this.username = username;

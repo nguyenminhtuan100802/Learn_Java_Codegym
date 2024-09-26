@@ -8,5 +8,6 @@ public interface UserChoiceHome {
     int CHANGE_PIN_ACCOUNT = 5;
     int CHANGE_PASSWORD = 6;
     int SHOW_USER_INFORMATION = 7;
+    int SHOW_TRANSACTION_HISTORY = 8;
     int RETURN_LOGIN = 10;
 }

@@ -14,37 +14,37 @@ public class AdminService {
         this.admin = new Admin();
     }
 
-    public void login(UserService userService) {
+    public void login(UserService userService, TransactionService transactionService) {
         System.out.print("Enter username:");
         String username = new Scanner(System.in).nextLine();
         System.out.print("Enter password:");
         String password = new Scanner(System.in).nextLine();
-        if (this.admin.getAccount().getUsername().equals(username) && this.admin.getAccount().getPassword().equals(password)) {
+        if (this.admin.getUsername().equals(username) && this.admin.getPassword().equals(password)) {
             System.out.println(TextColor.BLUE + "Admin login successfully" + TextColor.END_COLOR);
-            this.manage(userService);
-        }
-        else {
+            this.manage(userService, transactionService);
+        } else {
             System.out.println(TextColor.RED + "<!>Incorrect username or password" + TextColor.END_COLOR);
         }
     }
 
-    public void manage(UserService userService) {
+    public void manage(UserService userService, TransactionService transactionService) {
         while (true) {
             boolean isExit = false;
-            System.out.println("=================" + TextColor.YELLOW + " LOGIN > HOME (Admin)" + TextColor.END_COLOR + "=================");
+            System.out.println("=================" + TextColor.YELLOW + " LOGIN > HOME (Admin) " + TextColor.END_COLOR + "=================");
             System.out.println("1. Add new user");
             System.out.println("2. Find user");
             System.out.println("3. Edit user");
             System.out.println("4. Delete user");
             System.out.println("5. Show all users");
             System.out.println("6. Delete all user");
+            System.out.println("7. Show all user transaction history");
             System.out.println("10. Return login");
             System.out.println("=================" + TextColor.YELLOW + " END " + TextColor.END_COLOR + "=================");
             System.out.print("Enter your choice:");
             Choice.home = new Scanner(System.in).nextInt();
             switch (Choice.home) {
                 case AdminChoiceHome.ADD_NEW_USER:
-                    userService.addUser();
+                    userService.addUser(transactionService);
                     break;
                 case AdminChoiceHome.FIND_USER:
                     userService.findUser();
@@ -57,7 +57,10 @@ public class AdminService {
                     userService.showAllUsers();
                     break;
                 case AdminChoiceHome.DELETE_ALL_USERS:
-                    userService.deleteAllUsers();
+                    userService.deleteAllUsers(transactionService);
+                    break;
+                case AdminChoiceHome.SHOW_ALL_USER_TRANSACTION:
+                    userService.showAllUserTransactionsHistory(transactionService);
                     break;
                 case AdminChoiceHome.RETURN_LOGIN:
                     isExit = true;
