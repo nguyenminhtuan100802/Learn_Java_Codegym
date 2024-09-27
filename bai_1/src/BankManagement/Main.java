@@ -1,10 +1,10 @@
 package BankManagement;
 
-import BankManagement.controller.ApplicationManagement;
+import BankManagement.menu.LoginMenu;
 
 public class Main {
     public static void main(String[] args) {
-        ApplicationManagement applicationManagement = new ApplicationManagement();
-        applicationManagement.getApplicationService().run();
+        LoginMenu loginMenu = new LoginMenu();
+        loginMenu.run();
     }
 }
