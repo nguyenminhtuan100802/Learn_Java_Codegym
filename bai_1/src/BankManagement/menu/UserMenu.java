@@ -1,5 +1,6 @@
 package BankManagement.menu;
 
+import BankManagement.entity.Language;
 import BankManagement.management.TransactionManagement;
 import BankManagement.management.UserManagement;
 import BankManagement.utility.Choice.Choice;
@@ -11,6 +12,7 @@ import java.util.Scanner;
 public class UserMenu {
     private final UserManagement userManagement;
     private final TransactionManagement transactionManagement;
+
     public UserMenu() {
         userManagement = new UserManagement();
         transactionManagement = new TransactionManagement();
@@ -20,28 +22,49 @@ public class UserMenu {
         userManagement.saveAndLoadData(transactionManagement);
 
         boolean isFoundUser = false;
-        System.out.print("Enter your username:");
+        if (Language.languageName.equals("English")) System.out.print("Enter your username:");
+        else if (Language.languageName.equals("Vietnamese")) System.out.print("Nhập tên người dùng của bạn:");
         String username = (new Scanner(System.in)).nextLine();
-        System.out.print("Enter your password:");
+        if (Language.languageName.equals("English")) System.out.print("Enter your password:");
+        else if (Language.languageName.equals("Vietnamese")) System.out.print("Nhập mật khẩu của bạn:");
         String password = (new Scanner(System.in)).nextLine();
+
         for (int i = 0; i < userManagement.getUserArrayList().size(); i++) {
             if (userManagement.getUserArrayList().get(i).getUsername().equals(username) && userManagement.getUserArrayList().get(i).getPassword().equals(password)) {
                 isFoundUser = true;
-                System.out.println(TextColor.BLUE + "Welcome " + userManagement.getUserArrayList().get(i).getFullName() + TextColor.END_COLOR);
+                if (Language.languageName.equals("English"))
+                    System.out.println(TextColor.BLUE + "Welcome " + userManagement.getUserArrayList().get(i).getFullName() + TextColor.END_COLOR);
+                else if (Language.languageName.equals("Vietnamese"))
+                    System.out.println(TextColor.BLUE + "Chào mừng " + userManagement.getUserArrayList().get(i).getFullName() + TextColor.END_COLOR);
                 boolean isExit = false;
                 while (!isExit) {
-                    System.out.println("=================" + TextColor.YELLOW + " LOGIN > HOME (User) " + TextColor.END_COLOR + "=================");
-                    System.out.println("1. Deposit money");
-                    System.out.println("2. Withdraw money");
-                    System.out.println("3. Transact money");
-                    System.out.println("4. Set up PIN for account");
-                    System.out.println("5. Change PIN for account");
-                    System.out.println("6. Change password for account");
-                    System.out.println("7. Show your information");
-                    System.out.println("8. Show your transactions history");
-                    System.out.println("10. Return login");
-                    System.out.println("=================" + TextColor.YELLOW + " END " + TextColor.END_COLOR + "=================");
-                    System.out.print("Enter your choice:");
+                    if (Language.languageName.equals("English")) {
+                        System.out.println("=================" + TextColor.YELLOW + " LOGIN > HOME (User) " + TextColor.END_COLOR + "=================");
+                        System.out.println("1. Deposit money");
+                        System.out.println("2. Withdraw money");
+                        System.out.println("3. Transact money");
+                        System.out.println("4. Set up PIN for account");
+                        System.out.println("5. Change PIN for account");
+                        System.out.println("6. Change password for account");
+                        System.out.println("7. Show your information");
+                        System.out.println("8. Show your transactions history");
+                        System.out.println("10. Return login");
+                        System.out.println("=================" + TextColor.YELLOW + " END " + TextColor.END_COLOR + "=================");
+                        System.out.print("Enter your choice:");
+                    } else if (Language.languageName.equals("Vietnamese")) {
+                        System.out.println("=================" + TextColor.YELLOW + " ĐĂNG NHẬP > TRANG CHỦ (Người dùng) " + TextColor.END_COLOR + "=================");
+                        System.out.println("1. Gửi tiền");
+                        System.out.println("2. Rút tiền");
+                        System.out.println("3. Chuyển tiền");
+                        System.out.println("4. Thiết lập mã PIN cho tài khoản");
+                        System.out.println("5. Thay đổi mã PIN cho tài khoản");
+                        System.out.println("6. Thay đổi mật khẩu cho tài khoản");
+                        System.out.println("7. Xem thông tin của bạn");
+                        System.out.println("8. Xem lịch sử giao dịch của bạn");
+                        System.out.println("10. Quay lại đăng nhập");
+                        System.out.println("=================" + TextColor.YELLOW + " KẾT THÚC " + TextColor.END_COLOR + "=================");
+                        System.out.print("Nhập lựa chọn của bạn:");
+                    }
                     Choice.home = new Scanner(System.in).nextLine();
                     switch (Choice.home) {
                         case UserChoiceHome.DEPOSIT_MONEY:
@@ -72,13 +95,19 @@ public class UserMenu {
                             isExit = true;
                             break;
                         default:
-                            System.out.println(TextColor.RED + "<!>Your choice is not valid!" + TextColor.END_COLOR);
+                            if (Language.languageName.equals("English"))
+                                System.out.println(TextColor.RED + "<!>Your choice is not valid!" + TextColor.END_COLOR);
+                            else if (Language.languageName.equals("Vietnamese"))
+                                System.out.println(TextColor.RED + "<!>Lựa chọn của bạn không hợp lệ!" + TextColor.END_COLOR);
                     }
                 }
             }
         }
         if (!isFoundUser) {
-            System.out.println(TextColor.RED + "<!>Invalid username or password" + TextColor.END_COLOR);
+            if (Language.languageName.equals("English"))
+                System.out.println(TextColor.RED + "<!>Invalid username or password" + TextColor.END_COLOR);
+            else if (Language.languageName.equals("Vietnamese"))
+                System.out.println(TextColor.RED + "<!>Tên người dùng hoặc mật khẩu không hợp lệ" + TextColor.END_COLOR);
         }
     }
 }
