@@ -3,15 +3,16 @@ package BankManagement.entity;
 public class User extends Account{
     private String fullName;
     private String phoneNumber;
-    private String id;
-    public User(String fullName, String phoneNumber) {
+    private String email;
+    public User(String fullName, String phoneNumber, String email) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.id = phoneNumber;
         this.username = fullName + phoneNumber;
         this.password = fullName + phoneNumber;
+        this.email = email;
     }
-    public User(String fullName, String phoneNumber, String username, String password, String pin, double balance) {
+    public User(String fullName, String phoneNumber, String email, String username, String password, String pin, double balance) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.id = phoneNumber;
@@ -19,14 +20,15 @@ public class User extends Account{
         this.password = password;
         this.pin = pin;
         this.balance = balance;
+        this.email = email;
     }
 
-    public String getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFullName() {

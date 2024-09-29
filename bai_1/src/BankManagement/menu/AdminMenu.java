@@ -1,6 +1,7 @@
 package BankManagement.menu;
 
 import BankManagement.entity.Admin;
+import BankManagement.management.RegisterFormManagement;
 import BankManagement.management.TransactionManagement;
 import BankManagement.management.UserManagement;
 import BankManagement.utility.Choice.Choice;
@@ -12,23 +13,15 @@ import BankManagement.utility.ChoiceFromUser.AdminChoiceHome;
 import java.util.Scanner;
 
 public class AdminMenu {
-    private final Admin admin;
-    private final UserManagement userManagement;
-    private final TransactionManagement transactionManagement;
+    private static final Admin admin = new Admin();
 
-    public AdminMenu() {
-        this.admin = new Admin();
-        this.userManagement = new UserManagement();
-        this.transactionManagement = new TransactionManagement();
-    }
-
-    public void login() {
-        userManagement.saveAndLoadData(transactionManagement);
+    public static void login() {
+        UserManagement.saveAndLoadData();
         System.out.print("Enter username:");
         String username = new Scanner(System.in).nextLine();
         System.out.print("Enter password:");
         String password = new Scanner(System.in).nextLine();
-        if (this.admin.getUsername().equals(username) && this.admin.getPassword().equals(password)) {
+        if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
             System.out.println(TextColor.BLUE + "Admin login successfully" + TextColor.END_COLOR);
             boolean isExit = false;
             while (!isExit) {
@@ -41,16 +34,17 @@ public class AdminMenu {
                 System.out.println("6. Show all users");
                 System.out.println("7. Delete all user");
                 System.out.println("8. Show all user transaction history");
+                System.out.println("9. Show all user's register form");
                 System.out.println("10. Return login");
                 System.out.println("=================" + TextColor.YELLOW + " END " + TextColor.END_COLOR + "=================");
                 System.out.print("Enter your choice:");
                 Choice.home = new Scanner(System.in).nextLine();
                 switch (Choice.home) {
                     case AdminChoiceHome.ADD_NEW_USER:
-                        userManagement.addUser(transactionManagement);
+                        UserManagement.addUser();
                         break;
                     case AdminChoiceHome.FIND_USER:
-                        this.findUser();
+                        findUser();
                         break;
                     case AdminChoiceHome.EDIT_USER:
                         break;
@@ -59,13 +53,16 @@ public class AdminMenu {
                     case AdminChoiceHome.LOCK_USER:
                         break;
                     case AdminChoiceHome.SHOW_ALL_USERS:
-                        userManagement.showAllUsers();
+                        UserManagement.showAllUsers();
                         break;
                     case AdminChoiceHome.DELETE_ALL_USERS:
-                        userManagement.deleteAllUsers(transactionManagement);
+                        UserManagement.deleteAllUsers();
                         break;
                     case AdminChoiceHome.SHOW_ALL_USER_TRANSACTION:
-                        userManagement.showAllUserTransactionsHistory(transactionManagement);
+                        UserManagement.showAllUserTransactionsHistory();
+                        break;
+                    case AdminChoiceHome.SHOW_ALL_USER_REGISTER_FORM:
+                        RegisterFormManagement.showRegisterForms();
                         break;
                     case AdminChoiceHome.RETURN_LOGIN:
                         isExit = true;
@@ -79,7 +76,7 @@ public class AdminMenu {
         }
     }
 
-    public void findUser() {
+    private static void findUser() {
         boolean isExist = false;
         while (!isExist) {
             System.out.println("=================" + TextColor.YELLOW + " LOGIN > HOME (Admin) > FIND USER (Admin) " + TextColor.END_COLOR + "=================");
@@ -93,13 +90,13 @@ public class AdminMenu {
 
             switch (Choice.find) {
                 case AdminChoiceFind.FIND_BY_FULL_NAME:
-                    userManagement.findUserByName();
+                    UserManagement.findUserByName();
                     break;
                 case AdminChoiceFind.FIND_BY_PHONE_NUMBER:
-                    userManagement.findUserByPhoneNumber();
+                    UserManagement.findUserByPhoneNumber();
                     break;
                 case AdminChoiceFind.SHOW_ALL_USERS:
-                    userManagement.showAllUsers();
+                    UserManagement.showAllUsers();
                     break;
                 case AdminChoiceFind.RETURN_HOME:
                     isExist = true;
@@ -110,7 +107,7 @@ public class AdminMenu {
         }
     }
 
-    public void editUser() {
+    private static void editUser() {
         boolean isExist = false;
         while (!isExist) {
             System.out.println("=================" + TextColor.YELLOW + " LOGIN > HOME (Admin) > EDIT USER (Admin) " + TextColor.END_COLOR + "=================");
@@ -140,7 +137,7 @@ public class AdminMenu {
                 case AdminChoiceEdit.EDIT_ALL:
                     break;
                 case AdminChoiceEdit.SHOW_ALL_USERS:
-                    userManagement.showAllUsers();
+                    UserManagement.showAllUsers();
                     break;
                 case AdminChoiceEdit.RETURN_HOME:
                     isExist = true;

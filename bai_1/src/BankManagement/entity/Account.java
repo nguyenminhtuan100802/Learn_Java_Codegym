@@ -4,6 +4,7 @@ public class Account {
     protected String username;
     protected String password;
     protected double balance;
+    protected String id;
     protected String pin;
     public Account(){
         this.balance = 0;
@@ -17,6 +18,14 @@ public class Account {
         this.username = username;
         this.password = password;
         this.balance = balance;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {

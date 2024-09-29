@@ -6,6 +6,5 @@ public interface ChoiceLogin {
     String RESET_PASSWORD = "3";
     String REGISTER_USER = "4";
     String SUPPORT = "5";
-    String CHANGE_LANGUAGE = "6";
     String EXIT = "10";
 }

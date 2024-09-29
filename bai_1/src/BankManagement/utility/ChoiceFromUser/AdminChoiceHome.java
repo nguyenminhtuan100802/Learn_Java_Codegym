@@ -9,5 +9,6 @@ public interface AdminChoiceHome {
     String SHOW_ALL_USERS = "6";
     String DELETE_ALL_USERS = "7";
     String SHOW_ALL_USER_TRANSACTION = "8";
+    String SHOW_ALL_USER_REGISTER_FORM = "9";
     String RETURN_LOGIN= "10";
 }

@@ -1,7 +1,9 @@
 package BankManagement.management;
 
+import BankManagement.entity.RegisterForm;
 import BankManagement.entity.Transaction;
 import BankManagement.entity.User;
+import BankManagement.utility.File.FileReadUser;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class FileManagement {
                 for (int i = 0; i < userArrayList.size(); i++) {
                     fileWriter.write(userArrayList.get(i).getFullName() + "-");
                     fileWriter.write(userArrayList.get(i).getPhoneNumber() + "-");
+                    fileWriter.write(userArrayList.get(i).getEmail() + "-");
                     fileWriter.write(userArrayList.get(i).getUsername() + "-");
                     fileWriter.write(userArrayList.get(i).getPassword() + "-");
                     fileWriter.write(userArrayList.get(i).getPin() + "-");
@@ -32,6 +35,7 @@ public class FileManagement {
         int count = 0;
         StringBuilder fullName = new StringBuilder();
         StringBuilder phoneNumber = new StringBuilder();
+        StringBuilder email = new StringBuilder();
         StringBuilder userName = new StringBuilder();
         StringBuilder password = new StringBuilder();
         StringBuilder pin = new StringBuilder();
@@ -44,32 +48,35 @@ public class FileManagement {
             while (true){
                 int character = fileReader.read();
 //                System.out.print((char) character);
-                if (character == -1){
+                if (character == FileReadUser.END_FILE){
                     break;
                 }
-                if ((char)character == '-'){
+                if ((char)character == FileReadUser.DATA_SEPARATION){
                     count++;
 
                 }
-                if (count == 0 && (char)character != '-' && (char)character != '\n'){
+                if (count == FileReadUser.READING_FULL_NAME && (char)character != FileReadUser.DATA_SEPARATION && (char)character != FileReadUser.NEW_LINE){
                     fullName.append((char) character);
                 }
-                else if (count == 1 && (char)character != '-'){
+                else if (count == FileReadUser.READING_PHONE_NUMBER && (char)character != FileReadUser.DATA_SEPARATION){
                     phoneNumber.append((char) character);
                 }
-                else if (count == 2 && (char)character != '-'){
+                else if (count == FileReadUser.READING_EMAIL && (char)character != FileReadUser.DATA_SEPARATION){
+                    email.append((char) character);
+                }
+                else if (count == FileReadUser.READING_USERNAME && (char)character != FileReadUser.DATA_SEPARATION){
                     userName.append((char) character);
                 }
-                else if (count == 3 && (char)character != '-'){
+                else if (count == FileReadUser.READING_PASSWORD && (char)character != FileReadUser.DATA_SEPARATION){
                     password.append((char) character);
                 }
-                else if (count == 4 && (char)character != '-'){
+                else if (count == FileReadUser.READING_PIN && (char)character != FileReadUser.DATA_SEPARATION){
                     pin.append((char) character);
                 }
-                else if (count == 5 && (char)character != '-' && (char)character != '|'){
+                else if (count == FileReadUser.READING_BALANCE && (char)character != FileReadUser.DATA_SEPARATION && (char)character != FileReadUser.END_ONE_LINE){
                     balance.append((char) character);
                 }
-                if ((char)character == '|'){
+                if ((char)character == FileReadUser.END_ONE_LINE){
 //                    System.out.println();
 //                    System.out.println("Full Name: " + fullName);
 //                    System.out.println("Phone: " + phoneNumber);
@@ -78,11 +85,12 @@ public class FileManagement {
 //                    System.out.println("Pin: " + pin);
 //                    System.out.println("Balance: " + balance);
 
-                    userArrayList.add(new User(fullName.toString(), phoneNumber.toString(), userName.toString(), password.toString(), pin.toString(), Double.parseDouble(balance.toString())));
+                    userArrayList.add(new User(fullName.toString(), phoneNumber.toString(), email.toString(), userName.toString(), password.toString(), pin.toString(), Double.parseDouble(balance.toString())));
 
                     count = 0;
                     fullName = new StringBuilder();
                     phoneNumber = new StringBuilder();
+                    email = new StringBuilder();
                     userName = new StringBuilder();
                     password = new StringBuilder();
                     pin = new StringBuilder();
@@ -94,18 +102,18 @@ public class FileManagement {
         }
         return userArrayList;
     }
-    public static void saveTransactionToFile(TransactionManagement transactionManagement) {
-        if (!transactionManagement.getTransactions().isEmpty()){
+    public static void saveTransactionToFile(ArrayList<Transaction> transactionArrayList) {
+        if (!transactionArrayList.isEmpty()){
             try {
                 String fileName = "E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\BankManagement\\data\\transaction_history.txt";
                 FileWriter fileWriter = new FileWriter(fileName);
-                for (int i = 0; i < transactionManagement.getTransactions().size(); i++) {
-                    fileWriter.write(transactionManagement.getTransactions().get(i).getUserTransact() + "-");
-                    fileWriter.write(transactionManagement.getTransactions().get(i).getId() + "-");
-                    fileWriter.write(transactionManagement.getTransactions().get(i).getAmountOfTransactMoney() + "-");
-                    fileWriter.write(transactionManagement.getTransactions().get(i).getBalanceBeforeTransaction() + "-");
-                    fileWriter.write(transactionManagement.getTransactions().get(i).getBalanceAfterTransaction() + "-");
-                    fileWriter.write(transactionManagement.getTransactions().get(i).getDescription() + "|\n");
+                for (int i = 0; i < transactionArrayList.size(); i++) {
+                    fileWriter.write(transactionArrayList.get(i).getUserTransact() + "-");
+                    fileWriter.write(transactionArrayList.get(i).getId() + "-");
+                    fileWriter.write(transactionArrayList.get(i).getAmountOfTransactMoney() + "-");
+                    fileWriter.write(transactionArrayList.get(i).getBalanceBeforeTransaction() + "-");
+                    fileWriter.write(transactionArrayList.get(i).getBalanceAfterTransaction() + "-");
+                    fileWriter.write(transactionArrayList.get(i).getDescription() + "|\n");
                 }
                 fileWriter.flush();
                 fileWriter.close();
@@ -185,5 +193,23 @@ public class FileManagement {
             e.printStackTrace();
         }
         return transactionArrayList;
+    }
+    public static void saveRegisterFormToFile(ArrayList<RegisterForm> registerFormArrayList) {
+        if (!registerFormArrayList.isEmpty()){
+            try {
+                String fileName = "E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\BankManagement\\data\\register_form.txt";
+                FileWriter fileWriter = new FileWriter(fileName);
+                for (int i = 0; i < registerFormArrayList.size(); i++) {
+                    fileWriter.write(registerFormArrayList.get(i).getFullName() + "-");
+                    fileWriter.write(registerFormArrayList.get(i).getPhoneNumber() + "-");
+                    fileWriter.write(registerFormArrayList.get(i).getEmail() + "|\n");
+                }
+                fileWriter.flush();
+                fileWriter.close();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
