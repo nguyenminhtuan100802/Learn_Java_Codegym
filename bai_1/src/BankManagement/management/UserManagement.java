@@ -2,6 +2,8 @@ package BankManagement.management;
 
 import BankManagement.entity.Transaction;
 import BankManagement.entity.User;
+import BankManagement.management.FileManagement.FileTransactionManagement;
+import BankManagement.management.FileManagement.FileUserManagement;
 import BankManagement.utility.TextColor.TextColor;
 
 
@@ -71,10 +73,10 @@ public class UserManagement {
         System.out.print("Enter id of user you want to transact:");
         String inputId = (new Scanner(System.in)).nextLine();
         boolean isFound = false;
-        for (int i = 0; i < userArrayList.size(); i++) {
-            if (userArrayList.get(i).getPhoneNumber().equals(inputId)) {
+        for (User user : userArrayList) {
+            if (user.getPhoneNumber().equals(inputId)) {
                 isFound = true;
-                System.out.println(">>" + userArrayList.get(i).getUsername());
+                System.out.println(">>" + user.getUsername());
                 System.out.print("Enter amount of money to transact:");
                 double inputAmountOfMoney = (new Scanner(System.in)).nextDouble();
                 if (inputAmountOfMoney <= userSend.getBalance()) {
@@ -88,7 +90,7 @@ public class UserManagement {
                     if (inputPin.equals(userSend.getPin())) {
                         System.out.println(TextColor.BLUE + "Transact successfully, please check your account" + TextColor.END_COLOR);
                         userSend.setBalance(userSend.getBalance() - inputAmountOfMoney);
-                        userArrayList.get(i).setBalance(userArrayList.get(i).getBalance() + inputAmountOfMoney);
+                        user.setBalance(user.getBalance() + inputAmountOfMoney);
                         TransactionManagement.addTransaction(new Transaction(
                                 userSend.getId(),
                                 DateTimeFormatter.ofPattern("HH:mm:ss,dd/MM/yyyy").format(LocalDateTime.now()),
@@ -98,11 +100,11 @@ public class UserManagement {
                                 inputUserSendDescription));
 
                         TransactionManagement.addTransaction(new Transaction(
-                                userArrayList.get(i).getId(),
+                                user.getId(),
                                 DateTimeFormatter.ofPattern("HH:mm:ss,dd/MM/yyyy").format(LocalDateTime.now()),
                                 inputAmountOfMoney,
-                                (userArrayList.get(i).getBalance() - inputAmountOfMoney),
-                                userArrayList.get(i).getBalance(),
+                                (user.getBalance() - inputAmountOfMoney),
+                                user.getBalance(),
                                 inputUserSendDescription));
                         saveAndLoadData();
                     } else {
@@ -127,7 +129,7 @@ public class UserManagement {
             if (inputPinConfirm.equals(inputNewPin)) {
                 System.out.println(TextColor.BLUE + "Set up PIN Successfully" + TextColor.END_COLOR);
                 user.setPin(inputNewPin);
-                FileManagement.saveUserToFile(userArrayList);
+                saveAndLoadData();
             } else {
                 System.out.println(TextColor.RED + "<!> Your PIN confirm is wrong, please check again" + TextColor.END_COLOR);
             }
@@ -148,7 +150,7 @@ public class UserManagement {
             if (inputPinConfirm.equals(inputNewPin)) {
                 System.out.println(TextColor.BLUE + "Your PIN change successfully" + TextColor.END_COLOR);
                 user.setPin(inputNewPin);
-                FileManagement.saveUserToFile(userArrayList);
+                saveAndLoadData();
             } else {
                 System.out.println(TextColor.RED + "<!> Your PIN confirm is wrong, please check again" + TextColor.END_COLOR);
             }
@@ -169,7 +171,7 @@ public class UserManagement {
             if (inputNewPasswordConfirm.equals(inputNewPassword)) {
                 System.out.println(TextColor.BLUE + "Your password change successfully" + TextColor.END_COLOR);
                 user.setPassword(inputNewPassword);
-                FileManagement.saveUserToFile(userArrayList);
+                saveAndLoadData();
             } else {
                 System.out.println(TextColor.RED + "<!> Your password confirm is wrong" + TextColor.END_COLOR);
             }
@@ -223,6 +225,11 @@ public class UserManagement {
         saveAndLoadData();
         System.out.println(TextColor.BLUE + "Add user successfully" + TextColor.END_COLOR);
 
+        String bodyMail = "Kính gửi,\n" +
+                "Ông/bà: " + userFullName + "\n" +
+                "Số tài khoản: " + userFullName + userPhoneNumber;
+        MailManagement.announceAccountCreatedSuccessfully(userEmail, bodyMail);
+
     }
 
     public static void findUserByName() {
@@ -230,14 +237,14 @@ public class UserManagement {
         String inputUserFullName = new Scanner(System.in).nextLine();
         System.out.println("------------------" + TextColor.BLUE + " User Found " + TextColor.END_COLOR + "------------------");
         System.out.printf("%-20s %-15s %-15s %-30s %-30s%n", "Full name", "Phone number", "ID", "Username", "Password");
-        for (int i = 0; i < userArrayList.size(); i++) {
-            if (userArrayList.get(i).getFullName().equals(inputUserFullName)) {
+        for (User user : userArrayList) {
+            if (user.getFullName().equals(inputUserFullName)) {
                 System.out.printf("%-20s %-15s %-15s %-30s %-30s%n",
-                        userArrayList.get(i).getFullName(),
-                        userArrayList.get(i).getPhoneNumber(),
-                        userArrayList.get(i).getId(),
-                        userArrayList.get(i).getUsername(),
-                        userArrayList.get(i).getPassword());
+                        user.getFullName(),
+                        user.getPhoneNumber(),
+                        user.getId(),
+                        user.getUsername(),
+                        user.getPassword());
             }
         }
     }
@@ -247,14 +254,14 @@ public class UserManagement {
         String inputUserPhoneNumber = new Scanner(System.in).nextLine();
         System.out.println("------------------" + TextColor.BLUE + " User Found " + TextColor.END_COLOR + "------------------");
         System.out.printf("%-20s %-15s %-15s %-30s %-30s%n", "Full name", "Phone number", "ID", "Username", "Password");
-        for (int i = 0; i < userArrayList.size(); i++) {
-            if (userArrayList.get(i).getFullName().equals(inputUserPhoneNumber)) {
+        for (User user : userArrayList) {
+            if (user.getFullName().equals(inputUserPhoneNumber)) {
                 System.out.printf("%-20s %-15s %-15s %-30s %-30s%n",
-                        userArrayList.get(i).getFullName(),
-                        userArrayList.get(i).getPhoneNumber(),
-                        userArrayList.get(i).getId(),
-                        userArrayList.get(i).getUsername(),
-                        userArrayList.get(i).getPassword());
+                        user.getFullName(),
+                        user.getPhoneNumber(),
+                        user.getId(),
+                        user.getUsername(),
+                        user.getPassword());
             }
         }
     }
@@ -266,18 +273,17 @@ public class UserManagement {
     }
 
     public static void showAllUsers() {
-        userArrayList = FileManagement.loadUserFromFile();
-
+        saveAndLoadData();
         System.out.println("------------------" + TextColor.BLUE + " User List " + TextColor.END_COLOR + "------------------");
         System.out.printf("%-20s %-15s %-30s %-30s %-30s%n",
                 "Full name", "Phone number", "Email", "Username", "Password");
-        for (int i = 0; i < userArrayList.size(); i++) {
+        for (User user : userArrayList) {
             System.out.printf("%-20s %-15s %-30s %-30s %-30s%n",
-                    userArrayList.get(i).getFullName(),
-                    userArrayList.get(i).getPhoneNumber(),
-                    userArrayList.get(i).getEmail(),
-                    userArrayList.get(i).getUsername(),
-                    userArrayList.get(i).getPassword());
+                    user.getFullName(),
+                    user.getPhoneNumber(),
+                    user.getEmail(),
+                    user.getUsername(),
+                    user.getPassword());
         }
     }
 
@@ -310,11 +316,10 @@ public class UserManagement {
     }
 
     public static void saveAndLoadData() {
-        FileManagement.saveUserToFile(userArrayList);
-        userArrayList = FileManagement.loadUserFromFile();
-        FileManagement.saveTransactionToFile(TransactionManagement.transactionArrayList);
-        TransactionManagement.transactionArrayList = FileManagement.loadTransactionFromFile();
-
+        FileUserManagement.getInstance().saveToFile(userArrayList);
+        userArrayList = FileUserManagement.getInstance().loadFromFile();
+        FileTransactionManagement.getInstance().saveToFile(TransactionManagement.transactionArrayList);
+        TransactionManagement.transactionArrayList = FileTransactionManagement.getInstance().loadFromFile();
     }
 
 }

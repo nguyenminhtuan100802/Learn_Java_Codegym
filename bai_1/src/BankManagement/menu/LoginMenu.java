@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class LoginMenu {
 
-    public void run() {
+    public static void run() {
         boolean isExit = false;
         while (!isExit) {
             System.out.println("=================" + TextColor.YELLOW + " LOGIN " + TextColor.END_COLOR + "=================");

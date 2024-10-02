@@ -1,6 +1,7 @@
 package BankManagement.management;
 
 import BankManagement.entity.RegisterForm;
+import BankManagement.management.FileManagement.FileRegisterFormManagement;
 
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class RegisterFormManagement {
         String inputEmail = new Scanner(System.in).nextLine();
 
         registerFormArrayList.add(new RegisterForm(inputFullName, inputPhoneNumber, inputEmail));
-        FileManagement.saveRegisterFormToFile(registerFormArrayList);
+        FileRegisterFormManagement.getInstance().saveToFile(registerFormArrayList);
     }
     public static void showRegisterForms() {
         for (int i = 0; i < registerFormArrayList.size(); i++) {

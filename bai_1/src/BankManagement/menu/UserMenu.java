@@ -1,6 +1,5 @@
 package BankManagement.menu;
 
-import BankManagement.management.TransactionManagement;
 import BankManagement.management.UserManagement;
 import BankManagement.utility.Choice.Choice;
 import BankManagement.utility.ChoiceFromUser.UserChoiceHome;
