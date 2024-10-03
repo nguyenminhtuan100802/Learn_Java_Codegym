@@ -3,11 +3,20 @@ package BankManagement.management;
 import BankManagement.entity.Transaction;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionManagement {
-    public static ArrayList<Transaction> transactionArrayList = new ArrayList<>();
+    private static List<Transaction> transactionList = new ArrayList<>();
+
+    public static List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
+    public static void setTransactionList(List<Transaction> transactionList) {
+        TransactionManagement.transactionList = transactionList;
+    }
 
     public static void addTransaction(Transaction transaction) {
-        transactionArrayList.add(transaction);
+        transactionList.add(transaction);
     }
 }

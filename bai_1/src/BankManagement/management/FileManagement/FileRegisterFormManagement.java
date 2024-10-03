@@ -4,22 +4,23 @@ import BankManagement.entity.RegisterForm;
 
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.List;
 
-public class FileRegisterFormManagement implements FileManagement<ArrayList<RegisterForm>>{
+public class FileRegisterFormManagement implements FileManagement<List<RegisterForm>>{
     public static FileRegisterFormManagement getInstance(){
         return new FileRegisterFormManagement();
     }
 
     @Override
-    public void saveToFile(ArrayList<RegisterForm> registerFormArrayList) {
-        if (!registerFormArrayList.isEmpty()){
+    public void saveToFile(List<RegisterForm> registerFormList) {
+        if (!registerFormList.isEmpty()){
             try {
                 String fileName = "E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\BankManagement\\data\\register_form.txt";
                 FileWriter fileWriter = new FileWriter(fileName);
-                for (int i = 0; i < registerFormArrayList.size(); i++) {
-                    fileWriter.write(registerFormArrayList.get(i).getFullName() + "-");
-                    fileWriter.write(registerFormArrayList.get(i).getPhoneNumber() + "-");
-                    fileWriter.write(registerFormArrayList.get(i).getEmail() + "|\n");
+                for (RegisterForm registerForm : registerFormList) {
+                    fileWriter.write(registerForm.getFullName() + "-");
+                    fileWriter.write(registerForm.getPhoneNumber() + "-");
+                    fileWriter.write(registerForm.getEmail() + "|\n");
                 }
                 fileWriter.flush();
                 fileWriter.close();
@@ -31,7 +32,7 @@ public class FileRegisterFormManagement implements FileManagement<ArrayList<Regi
     }
 
     @Override
-    public ArrayList<RegisterForm> loadFromFile() {
+    public List<RegisterForm> loadFromFile() {
         return null;
     }
 }

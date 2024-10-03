@@ -6,25 +6,26 @@ import Youtube.TITV.JDBC.JDBC_07.dao.CustomerDAO;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.List;
 
-public class FileTransactionManagement implements FileManagement<ArrayList<Transaction>> {
+public class FileTransactionManagement implements FileManagement<List<Transaction>> {
     public static FileTransactionManagement getInstance(){
         return new FileTransactionManagement();
     }
 
     @Override
-    public void saveToFile(ArrayList<Transaction> transactionArrayList) {
-        if (!transactionArrayList.isEmpty()){
+    public void saveToFile(List<Transaction> transactionList) {
+        if (!transactionList.isEmpty()){
             try {
                 String fileName = "E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\BankManagement\\data\\transaction_history.txt";
                 FileWriter fileWriter = new FileWriter(fileName);
-                for (int i = 0; i < transactionArrayList.size(); i++) {
-                    fileWriter.write(transactionArrayList.get(i).getUserTransact() + "-");
-                    fileWriter.write(transactionArrayList.get(i).getId() + "-");
-                    fileWriter.write(transactionArrayList.get(i).getAmountOfTransactMoney() + "-");
-                    fileWriter.write(transactionArrayList.get(i).getBalanceBeforeTransaction() + "-");
-                    fileWriter.write(transactionArrayList.get(i).getBalanceAfterTransaction() + "-");
-                    fileWriter.write(transactionArrayList.get(i).getDescription() + "|\n");
+                for (Transaction transaction : transactionList) {
+                    fileWriter.write(transaction.getUserTransact() + "-");
+                    fileWriter.write(transaction.getId() + "-");
+                    fileWriter.write(transaction.getAmountOfTransactMoney() + "-");
+                    fileWriter.write(transaction.getBalanceBeforeTransaction() + "-");
+                    fileWriter.write(transaction.getBalanceAfterTransaction() + "-");
+                    fileWriter.write(transaction.getDescription() + "|\n");
                 }
                 fileWriter.flush();
                 fileWriter.close();
@@ -36,7 +37,7 @@ public class FileTransactionManagement implements FileManagement<ArrayList<Trans
     }
 
     @Override
-    public ArrayList<Transaction> loadFromFile() {
+    public List<Transaction> loadFromFile() {
         int count = 0;
         StringBuilder transactionExecutionAccount = new StringBuilder();
         StringBuilder idTransaction = new StringBuilder();
@@ -44,7 +45,7 @@ public class FileTransactionManagement implements FileManagement<ArrayList<Trans
         StringBuilder amountOfBalanceBeforeTransact = new StringBuilder();
         StringBuilder amountOfBalanceAfterTransact = new StringBuilder();
         StringBuilder description = new StringBuilder();
-        ArrayList<Transaction> transactionArrayList = new ArrayList<>();
+        List<Transaction> transactionList = new ArrayList<>();
         try {
             String fileName = "E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\BankManagement\\data\\transaction_history.txt";
             FileReader fileReader = new FileReader(fileName);
@@ -85,7 +86,7 @@ public class FileTransactionManagement implements FileManagement<ArrayList<Trans
 //                    System.out.println("amountOfBalanceAfterTransact: " + amountOfBalanceAfterTransact);
 //                    System.out.println("description: " + description);
 
-                    transactionArrayList.add(new Transaction(
+                    transactionList.add(new Transaction(
                             transactionExecutionAccount.toString(),
                             idTransaction.toString(),
                             Double.parseDouble(amountOfMoneyTransact.toString()),
@@ -105,5 +106,6 @@ public class FileTransactionManagement implements FileManagement<ArrayList<Trans
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return transactionArrayList;    }
+        return transactionList;
+    }
 }

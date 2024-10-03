@@ -8,8 +8,8 @@ public class User extends Account{
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.id = phoneNumber;
-        this.username = fullName + phoneNumber;
-        this.password = fullName + phoneNumber;
+        this.username = phoneNumber;
+        this.password = phoneNumber;
         this.email = email;
     }
     public User(String fullName, String phoneNumber, String email, String username, String password, String pin, double balance) {
