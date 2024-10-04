@@ -1,22 +1,30 @@
 package BankManagement.management;
 
 import BankManagement.entity.RegisterForm;
-import BankManagement.management.FileManagement.FileRegisterFormManagement;
+import BankManagement.service.File.FileRegisterForm;
+import BankManagement.service.InputDataService;
 
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class RegisterFormManagement {
     private static ArrayList<RegisterForm> registerFormArrayList = new ArrayList<>();
 
+    public static ArrayList<RegisterForm> getRegisterFormArrayList() {
+        return registerFormArrayList;
+    }
+
+    public static void setRegisterFormArrayList(ArrayList<RegisterForm> registerFormArrayList) {
+        RegisterFormManagement.registerFormArrayList = registerFormArrayList;
+    }
+
     public static void addNewRegisterForm() {
-        String userFullName = InputDataManagement.inputAndCheckFullName();
-        String userPhoneNumber = InputDataManagement.inputAndCheckPhoneNumber();
-        String userEmail = InputDataManagement.inputAndCheckEmail();
+        String userFullName = InputDataService.inputAndCheckFullName();
+        String userPhoneNumber = InputDataService.inputAndCheckPhoneNumber();
+        String userEmail = InputDataService.inputAndCheckEmail();
 
         registerFormArrayList.add(new RegisterForm(userFullName, userPhoneNumber, userEmail));
-        FileRegisterFormManagement.getInstance().saveToFile(registerFormArrayList);
+        FileRegisterForm.getInstance().saveToFile(registerFormArrayList);
     }
     public static void showRegisterForms() {
         for (RegisterForm registerForm : registerFormArrayList) {

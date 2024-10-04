@@ -1,22 +1,23 @@
 package BankManagement.menu.Admin;
 
-import BankManagement.entity.Admin;
-import BankManagement.management.AdminManagement;
+import BankManagement.service.AdminService;
 import BankManagement.management.RegisterFormManagement;
 import BankManagement.management.UserManagement;
+import BankManagement.menu.Menu;
+import BankManagement.service.File.FileService;
 import BankManagement.utility.Choice.Choice;
-import BankManagement.utility.ChoiceFromUser.AdminChoiceEdit;
 import BankManagement.utility.TextColor.TextColor;
 import BankManagement.utility.ChoiceFromUser.AdminChoiceHome;
 
 import java.util.Scanner;
 
-public class AdminMenu {
-    private static final Admin admin = new Admin();
-
-    public static void displayMenu() {
-        UserManagement.saveAndLoadData();
-        if (AdminManagement.verifyLogin()){
+public class AdminMenu implements Menu {
+    public static AdminMenu getInstance() {
+        return new AdminMenu();
+    }
+    public void displayMenu() {
+        FileService.saveAndLoadData();
+        if (AdminService.verifyLogin()){
             boolean isExit = false;
             while (!isExit) {
                 System.out.println("=================" + TextColor.YELLOW + " ĐĂNG NHẬP > TRANG CHỦ (Quản trị viên) " + TextColor.END_COLOR + "=================");
@@ -34,26 +35,26 @@ public class AdminMenu {
                 Choice.home = new Scanner(System.in).nextLine();
                 switch (Choice.home) {
                     case AdminChoiceHome.ADD_NEW_USER:
-                        AdminManagement.addUser();
+                        UserManagement.addUser();
                         break;
                     case AdminChoiceHome.FIND_USER:
-                        AdminFindUserMenu.findUser();
+                        AdminFindUserMenu.getInstance().displayMenu();
                         break;
                     case AdminChoiceHome.EDIT_USER:
-                        AdminEditUserMenu.editUser();
+                        AdminEditUserMenu.getInstance().displayMenu();
                         break;
                     case AdminChoiceHome.DELETE_USER:
                         break;
                     case AdminChoiceHome.LOCK_USER:
                         break;
                     case AdminChoiceHome.SHOW_ALL_USERS:
-                        AdminManagement.showAllUsers();
+                        UserManagement.showAllUsers();
                         break;
                     case AdminChoiceHome.DELETE_ALL_USERS:
-                        AdminManagement.deleteAllUsers();
+                        UserManagement.deleteAllUsers();
                         break;
                     case AdminChoiceHome.SHOW_ALL_USER_TRANSACTION:
-                        AdminManagement.showAllUserTransactionsHistory();
+                        UserManagement.showAllUserTransactionsHistory();
                         break;
                     case AdminChoiceHome.SHOW_ALL_USER_REGISTER_FORM:
                         RegisterFormManagement.showRegisterForms();

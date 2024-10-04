@@ -1,14 +1,14 @@
 package BankManagement.management;
 
-import BankManagement.entity.Transaction;
 import BankManagement.entity.User;
-import BankManagement.management.FileManagement.FileTransactionManagement;
-import BankManagement.management.FileManagement.FileUserManagement;
+import BankManagement.service.File.FileService;
+import BankManagement.service.File.FileTransaction;
+import BankManagement.service.File.FileUser;
+import BankManagement.service.InputDataService;
+import BankManagement.service.MailService;
 import BankManagement.utility.TextColor.TextColor;
 
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,128 +24,207 @@ public class UserManagement {
         UserManagement.userList = userList;
     }
 
-    public static User verifyLogin() {
-        System.out.print("Enter your username:");
-        String username = (new Scanner(System.in)).nextLine();
-        System.out.print("Enter your password:");
-        String password = (new Scanner(System.in)).nextLine();
+    public static void addUser() {
+        String userFullName = InputDataService.inputAndCheckFullName();
+        String userPhoneNumber = InputDataService.inputAndCheckPhoneNumber();
+        String userEmail = InputDataService.inputAndCheckEmail();
 
-        for (int i = 0; i < userList.size(); i++) {
-            if (UserManagement.getUserArrayList().get(i).getUsername().equals(username) && UserManagement.getUserArrayList().get(i).getPassword().equals(password)) {
-                System.out.println(TextColor.BLUE + "Welcome " + UserManagement.getUserArrayList().get(i).getFullName() + TextColor.END_COLOR);
-                return UserManagement.getUserArrayList().get(i);
+        UserManagement.getUserArrayList().add(new User(userFullName, userPhoneNumber, userEmail));
+        FileService.saveAndLoadData();
+        System.out.println(TextColor.BLUE + "Thêm người dùng thành công" + TextColor.END_COLOR);
+
+        MailService.sendEmailAccountCreated(userEmail, userFullName, userPhoneNumber);
+    }
+
+    public static void findUserByName() {
+        System.out.print("Nhập tên người dùng bạn muốn tìm:");
+        String inputUserFullName = new Scanner(System.in).nextLine();
+        System.out.println("------------------" + TextColor.BLUE + " Người dùng đã tìm thấy " + TextColor.END_COLOR + "------------------");
+        System.out.printf("%-20s %-15s %-15s %-30s %-30s%n", "Họ và tên", "Số điện thoại", "ID", "Tên người dùng", "Mật khẩu");
+        for (User user : UserManagement.getUserArrayList()) {
+            if (user.getFullName().equals(inputUserFullName)) {
+                System.out.printf("%-20s %-15s %-15s %-30s %-30s%n",
+                        user.getFullName(),
+                        user.getPhoneNumber(),
+                        user.getId(),
+                        user.getUsername(),
+                        user.getPassword());
             }
         }
-        System.out.println(TextColor.RED + "<!> Tên đăng nhập hoặc mật khẩu không đúng!" + TextColor.END_COLOR);
+    }
+
+    private static User findUserByPhoneNumber(String phoneNumber) {
+        for (User user : UserManagement.getUserArrayList()) {
+            if (user.getPhoneNumber().equals(phoneNumber)) {
+                return user;
+            }
+        }
         return null;
     }
-    public static void deposit(User user) {
-        System.out.print("Nhập số tiền bạn muốn gửi: ");
-        double inputAmountOfMoney = (new Scanner(System.in)).nextDouble();
-        System.out.print("Nhập mã PIN của bạn để hoàn tất giao dịch: ");
-        String inputPin = (new Scanner(System.in)).nextLine();
 
-        if (user.getPin().equals(inputPin)) {
-            System.out.println(TextColor.BLUE + "Gửi tiền thành công, vui lòng kiểm tra tài khoản của bạn" + TextColor.END_COLOR);
-            user.setBalance(user.getBalance() + inputAmountOfMoney);
-
-            TransactionManagement.addTransaction(new Transaction(
-                    user.getPhoneNumber(),
-                    DateTimeFormatter.ofPattern("HH:mm:ss,dd/MM/yyyy").format(LocalDateTime.now()),
-                    inputAmountOfMoney,
-                    (user.getBalance() - inputAmountOfMoney),
-                    user.getBalance(),
-                    "Gửi tiền từ người dùng"));
-
-            saveAndLoadData();
-        } else if (user.getPin().isEmpty()) {
-            System.out.println(TextColor.RED + "<!> Vui lòng thiết lập mã PIN cho tài khoản của bạn" + TextColor.END_COLOR);
-        } else {
-            System.out.println(TextColor.RED + "<!> Mã PIN của bạn không đúng, vui lòng kiểm tra lại" + TextColor.END_COLOR);
-        }
-    }
-
-
-    public static void withdraw(User user) {
-        System.out.print("Nhập số tiền bạn muốn rút: ");
-        double inputAmountOfMoney = (new Scanner(System.in)).nextDouble();
-        if (user.getBalance() >= inputAmountOfMoney) {
-            System.out.print("Nhập mã PIN của bạn để hoàn tất giao dịch: ");
-            String inputPin = (new Scanner(System.in)).nextLine();
-            if (user.getPin().equals(inputPin)) {
-                System.out.println(TextColor.BLUE + "Rút tiền thành công, vui lòng kiểm tra tài khoản của bạn" + TextColor.END_COLOR);
-                user.setBalance(user.getBalance() - inputAmountOfMoney);
-
-                TransactionManagement.addTransaction(new Transaction(
+    public static void findUserByPhoneNumber() {
+        System.out.print("Nhập số điện thoại người dùng bạn muốn tìm:");
+        String inputUserPhoneNumber = new Scanner(System.in).nextLine();
+        System.out.println("------------------" + TextColor.BLUE + " Người dùng đã tìm thấy " + TextColor.END_COLOR + "------------------");
+        System.out.printf("%-20s %-15s %-15s %-30s %-30s%n", "Họ và tên", "Số điện thoại", "ID", "Tên người dùng", "Mật khẩu");
+        for (User user : UserManagement.getUserArrayList()) {
+            if (user.getPhoneNumber().equals(inputUserPhoneNumber)) {
+                System.out.printf("%-20s %-15s %-15s %-30s %-30s%n",
+                        user.getFullName(),
                         user.getPhoneNumber(),
-                        DateTimeFormatter.ofPattern("HH:mm:ss,dd/MM/yyyy").format(LocalDateTime.now()),
-                        inputAmountOfMoney,
-                        (user.getBalance() + inputAmountOfMoney),
-                        user.getBalance(),
-                        "Rút tiền từ người dùng"));
-                saveAndLoadData();
-            } else if (user.getPin().isEmpty()) {
-                System.out.println(TextColor.RED + "<!> Vui lòng thiết lập mã PIN cho tài khoản của bạn" + TextColor.END_COLOR);
-            } else {
-                System.out.println(TextColor.RED + "<!> Mã PIN của bạn không đúng, vui lòng kiểm tra lại" + TextColor.END_COLOR);
+                        user.getId(),
+                        user.getUsername(),
+                        user.getPassword());
             }
+        }
+    }
+
+
+    public static void editUserName() {
+        System.out.print("Nhập số điện thoại người dùng bạn muốn chỉnh sửa tên: ");
+        String phoneNumber = new Scanner(System.in).nextLine();
+        User user = findUserByPhoneNumber(phoneNumber);
+        if (user != null) {
+            System.out.print("Nhập tên mới: ");
+            String newName = new Scanner(System.in).nextLine();
+            user.setFullName(newName);
+            FileService.saveAndLoadData();
+            System.out.println(TextColor.BLUE + "Chỉnh sửa tên thành công" + TextColor.END_COLOR);
         } else {
-            System.out.println(TextColor.RED + "<!> Số dư của bạn không đủ để thực hiện giao dịch" + TextColor.END_COLOR);
+            System.out.println(TextColor.RED + "<!> Người dùng không tồn tại" + TextColor.END_COLOR);
+        }
+    }
+    public static void editUserPhoneNumber() {
+        System.out.print("Nhập số điện thoại hiện tại của người dùng: ");
+        String oldPhoneNumber = new Scanner(System.in).nextLine();
+        User user = findUserByPhoneNumber(oldPhoneNumber);
+        if (user != null) {
+            System.out.print("Nhập số điện thoại mới: ");
+            String newPhoneNumber = new Scanner(System.in).nextLine();
+            user.setPhoneNumber(newPhoneNumber);
+            FileService.saveAndLoadData();
+            System.out.println(TextColor.BLUE + "Chỉnh sửa số điện thoại thành công" + TextColor.END_COLOR);
+        } else {
+            System.out.println(TextColor.RED + "<!> Người dùng không tồn tại" + TextColor.END_COLOR);
         }
     }
 
-    public static void transact(User userSend) {
-        System.out.print("Nhập mã số người dùng bạn muốn giao dịch: ");
-        String inputId = (new Scanner(System.in)).nextLine();
-        boolean isFound = false;
-        for (User user : userList) {
-            if (user.getPhoneNumber().equals(inputId)) {
-                isFound = true;
-                System.out.println(">>" + user.getUsername());
-                System.out.print("Nhập số tiền bạn muốn chuyển: ");
-                double inputAmountOfMoney = (new Scanner(System.in)).nextDouble();
-                if (inputAmountOfMoney <= userSend.getBalance()) {
-                    System.out.print("Nhập mô tả cho giao dịch: ");
-                    String inputUserSendDescription = (new Scanner(System.in)).nextLine();
-                    if (inputUserSendDescription.isEmpty()) {
-                        inputUserSendDescription = userSend.getFullName() + " gửi tiền";
-                    }
-                    System.out.print("Nhập mã PIN của bạn để hoàn tất giao dịch: ");
-                    String inputPin = (new Scanner(System.in)).nextLine();
-                    if (inputPin.equals(userSend.getPin())) {
-                        System.out.println(TextColor.BLUE + "Giao dịch thành công, vui lòng kiểm tra tài khoản của bạn" + TextColor.END_COLOR);
-                        userSend.setBalance(userSend.getBalance() - inputAmountOfMoney);
-                        user.setBalance(user.getBalance() + inputAmountOfMoney);
-
-                        TransactionManagement.addTransaction(new Transaction(
-                                userSend.getId(),
-                                DateTimeFormatter.ofPattern("HH:mm:ss,dd/MM/yyyy").format(LocalDateTime.now()),
-                                inputAmountOfMoney,
-                                (userSend.getBalance() + inputAmountOfMoney),
-                                userSend.getBalance(),
-                                inputUserSendDescription));
-
-                        TransactionManagement.addTransaction(new Transaction(
-                                user.getId(),
-                                DateTimeFormatter.ofPattern("HH:mm:ss,dd/MM/yyyy").format(LocalDateTime.now()),
-                                inputAmountOfMoney,
-                                (user.getBalance() - inputAmountOfMoney),
-                                user.getBalance(),
-                                inputUserSendDescription));
-                        saveAndLoadData();
-                    } else {
-                        System.out.println(TextColor.RED + "<!> Mã PIN của bạn không đúng" + TextColor.END_COLOR);
-                    }
-                } else {
-                    System.out.println(TextColor.RED + "<!> Số dư của bạn không đủ để thực hiện giao dịch" + TextColor.END_COLOR);
-                }
-            }
-        }
-        if (!isFound) {
-            System.out.println(TextColor.RED + "<!> Không tìm thấy người dùng" + TextColor.END_COLOR);
+    public static void editUserPassword() {
+        System.out.print("Nhập số điện thoại người dùng bạn muốn chỉnh sửa mật khẩu: ");
+        String phoneNumber = new Scanner(System.in).nextLine();
+        User user = findUserByPhoneNumber(phoneNumber);
+        if (user != null) {
+            System.out.print("Nhập mật khẩu mới: ");
+            String newPassword = new Scanner(System.in).nextLine();
+            user.setPassword(newPassword);
+            FileService.saveAndLoadData();
+            System.out.println(TextColor.BLUE + "Chỉnh sửa mật khẩu thành công" + TextColor.END_COLOR);
+        } else {
+            System.out.println(TextColor.RED + "<!> Người dùng không tồn tại" + TextColor.END_COLOR);
         }
     }
 
+    public static void editUserPIN() {
+        System.out.print("Nhập số điện thoại người dùng bạn muốn chỉnh sửa PIN: ");
+        String phoneNumber = new Scanner(System.in).nextLine();
+        User user = findUserByPhoneNumber(phoneNumber);
+        if (user != null) {
+            System.out.print("Nhập PIN mới: ");
+            String newPIN = new Scanner(System.in).nextLine();
+            user.setPin(newPIN);
+            FileService.saveAndLoadData();
+            System.out.println(TextColor.BLUE + "Chỉnh sửa PIN thành công" + TextColor.END_COLOR);
+        } else {
+            System.out.println(TextColor.RED + "<!> Người dùng không tồn tại" + TextColor.END_COLOR);
+        }
+    }
+
+    public static void editUserEmail() {
+        System.out.print("Nhập số điện thoại người dùng bạn muốn chỉnh sửa email: ");
+        String phoneNumber = new Scanner(System.in).nextLine();
+        User user = findUserByPhoneNumber(phoneNumber);
+        if (user != null) {
+            System.out.print("Nhập email mới: ");
+            String newEmail = new Scanner(System.in).nextLine();
+            user.setEmail(newEmail);
+            FileService.saveAndLoadData();
+            System.out.println(TextColor.BLUE + "Chỉnh sửa email thành công" + TextColor.END_COLOR);
+        } else {
+            System.out.println(TextColor.RED + "<!> Người dùng không tồn tại" + TextColor.END_COLOR);
+        }
+    }
+
+    public static void editAllUserInfo() {
+        System.out.print("Nhập số điện thoại người dùng bạn muốn chỉnh sửa: ");
+        String phoneNumber = new Scanner(System.in).nextLine();
+        User user = findUserByPhoneNumber(phoneNumber);
+        if (user != null) {
+            System.out.print("Nhập tên mới: ");
+            String newName = new Scanner(System.in).nextLine();
+            System.out.print("Nhập số điện thoại mới: ");
+            String newPhoneNumber = new Scanner(System.in).nextLine();
+            System.out.print("Nhập mật khẩu mới: ");
+            String newPassword = new Scanner(System.in).nextLine();
+            System.out.print("Nhập PIN mới: ");
+            String newPIN = new Scanner(System.in).nextLine();
+            System.out.print("Nhập email mới: ");
+            String newEmail = new Scanner(System.in).nextLine();
+
+            user.setFullName(newName);
+            user.setPhoneNumber(newPhoneNumber);
+            user.setPassword(newPassword);
+            user.setPin(newPIN);
+            user.setEmail(newEmail);
+
+            FileService.saveAndLoadData();
+            System.out.println(TextColor.BLUE + "Chỉnh sửa tất cả thông tin thành công" + TextColor.END_COLOR);
+        } else {
+            System.out.println(TextColor.RED + "<!> Người dùng không tồn tại" + TextColor.END_COLOR);
+        }
+    }
+
+    public static void showAllUsers() {
+        FileService.saveAndLoadData();
+        System.out.println("------------------" + TextColor.BLUE + " Danh sách người dùng " + TextColor.END_COLOR + "------------------");
+        System.out.printf("%-30s %-15s %-40s %-30s %-30s%n",
+                "Họ và tên", "Số điện thoại", "Email", "Tên người dùng", "Mật khẩu");
+        for (User user : UserManagement.getUserArrayList()) {
+            System.out.printf("%-30s %-15s %-40s %-30s %-30s%n",
+                    user.getFullName(),
+                    user.getPhoneNumber(),
+                    user.getEmail(),
+                    user.getUsername(),
+                    user.getPassword());
+        }
+    }
+
+    public static void deleteAllUsers() {
+        System.out.print("Bạn có muốn xóa tất cả người dùng không? (Y/N):");
+        String inputAnswer = (new Scanner(System.in)).nextLine();
+        if (inputAnswer.equals("Y")) {
+            UserManagement.getUserArrayList().clear();
+            FileService.saveAndLoadData();
+            System.out.println(TextColor.BLUE + "Xóa tất cả người dùng thành công" + TextColor.END_COLOR);
+        }
+    }
+
+
+    public static void showAllUserTransactionsHistory() {
+        FileService.saveAndLoadData();
+
+        System.out.println("------------------" + TextColor.BLUE + " Lịch sử giao dịch của tất cả người dùng " + TextColor.END_COLOR + "------------------");
+        System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s%n", "Tài khoản", "ID giao dịch", "Giao dịch", "Số dư trước giao dịch", "Số dư sau giao dịch", "Mô tả");
+
+        for (int j = 0; j < TransactionManagement.getTransactionList().size(); j++) {
+            System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s%n",
+                    TransactionManagement.getTransactionList().get(j).getUserTransact(),
+                    TransactionManagement.getTransactionList().get(j).getId(),
+                    TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney(),
+                    TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction(),
+                    TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction(),
+                    TransactionManagement.getTransactionList().get(j).getDescription());
+        }
+    }
 
     public static void setUpPinForAccount(User user) {
         if (user.getPin().isEmpty()) {
@@ -156,7 +235,7 @@ public class UserManagement {
             if (inputPinConfirm.equals(inputNewPin)) {
                 System.out.println(TextColor.BLUE + "Thiết lập mã PIN thành công" + TextColor.END_COLOR);
                 user.setPin(inputNewPin);
-                saveAndLoadData();
+                FileService.saveAndLoadData();
             } else {
                 System.out.println(TextColor.RED + "<!> Mã xác nhận không đúng, vui lòng kiểm tra lại" + TextColor.END_COLOR);
             }
@@ -177,7 +256,7 @@ public class UserManagement {
             if (inputPinConfirm.equals(inputNewPin)) {
                 System.out.println(TextColor.BLUE + "Thay đổi mã PIN thành công" + TextColor.END_COLOR);
                 user.setPin(inputNewPin);
-                saveAndLoadData();
+                FileService.saveAndLoadData();
             } else {
                 System.out.println(TextColor.RED + "<!> Xác nhận mã PIN không đúng, vui lòng kiểm tra lại" + TextColor.END_COLOR);
             }
@@ -198,7 +277,7 @@ public class UserManagement {
             if (inputNewPasswordConfirm.equals(inputNewPassword)) {
                 System.out.println(TextColor.BLUE + "Thay đổi mật khẩu thành công" + TextColor.END_COLOR);
                 user.setPassword(inputNewPassword);
-                saveAndLoadData();
+                FileService.saveAndLoadData();
             } else {
                 System.out.println(TextColor.RED + "<!> Xác nhận mật khẩu không đúng, vui lòng kiểm tra lại" + TextColor.END_COLOR);
             }
@@ -209,7 +288,7 @@ public class UserManagement {
 
 
     public static void showUserInformation(User user) {
-        saveAndLoadData();
+        FileService.saveAndLoadData();
 
         System.out.println("------------------" + TextColor.BLUE + " Thông tin của bạn " + TextColor.END_COLOR + "------------------");
         System.out.printf("%-30s %-15s %-40s %-30s %-30s%n", "| Họ tên", "| Số điện thoại", "| Email", "| Tài khoản", "| Mật khẩu");
@@ -222,7 +301,7 @@ public class UserManagement {
     }
 
     public static void showUserTransactionHistory(User user) {
-        saveAndLoadData();
+        FileService.saveAndLoadData();
         System.out.println("------------------" + TextColor.BLUE + " Lịch sử giao dịch của bạn " + TextColor.END_COLOR + "------------------");
         System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s%n", "| Tài khoản", "| Mã giao dịch", "| Giao dịch", "| Số dư trước giao dịch", "| Số dư sau giao dịch", "| Mô tả");
 
@@ -241,7 +320,7 @@ public class UserManagement {
 
     public static void resetPassword() {
         boolean isFound = false;
-        saveAndLoadData();
+        FileService.saveAndLoadData();
         System.out.print("Nhập tên tài khoản của bạn:");
         String inputUserName = new Scanner(System.in).nextLine();
         for (User user : userList) {
@@ -254,8 +333,8 @@ public class UserManagement {
                     String inputUserPin = new Scanner(System.in).nextLine();
                     if (user.getPin().equals(inputUserPin)) {
                         user.setPassword("0123456789");
-                        saveAndLoadData();
-                        MailManagement.sendEmailResetPassword(inputUserEmail, user.getFullName(), user.getUsername(), user.getPassword());
+                        FileService.saveAndLoadData();
+                        MailService.sendEmailResetPassword(inputUserEmail, user.getFullName(), user.getUsername(), user.getPassword());
                     } else {
                         System.out.println(TextColor.RED + "<!> Mã PIN không đúng" + TextColor.END_COLOR);
                     }
@@ -267,12 +346,5 @@ public class UserManagement {
         if (!isFound) {
             System.out.println(TextColor.RED + "<!> Không tìm thấy tên tài khoản" + TextColor.END_COLOR);
         }
-    }
-
-    public static void saveAndLoadData() {
-        FileUserManagement.getInstance().saveToFile(userList);
-        userList = FileUserManagement.getInstance().loadFromFile();
-        FileTransactionManagement.getInstance().saveToFile(TransactionManagement.getTransactionList());
-        TransactionManagement.setTransactionList(FileTransactionManagement.getInstance().loadFromFile());
     }
 }

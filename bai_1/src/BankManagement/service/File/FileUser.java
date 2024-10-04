@@ -1,4 +1,4 @@
-package BankManagement.management.FileManagement;
+package BankManagement.service.File;
 
 import BankManagement.entity.User;
 import BankManagement.utility.File.FileReadUser;
@@ -8,9 +8,9 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileUserManagement implements FileManagement<List<User>> {
-    public static FileUserManagement getInstance(){
-        return new FileUserManagement();
+public class FileUser implements File<List<User>> {
+    public static FileUser getInstance(){
+        return new FileUser();
     }
 
     @Override

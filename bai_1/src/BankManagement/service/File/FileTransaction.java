@@ -1,16 +1,15 @@
-package BankManagement.management.FileManagement;
+package BankManagement.service.File;
 
 import BankManagement.entity.Transaction;
-import Youtube.TITV.JDBC.JDBC_07.dao.CustomerDAO;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileTransactionManagement implements FileManagement<List<Transaction>> {
-    public static FileTransactionManagement getInstance(){
-        return new FileTransactionManagement();
+public class FileTransaction implements File<List<Transaction>> {
+    public static FileTransaction getInstance(){
+        return new FileTransaction();
     }
 
     @Override

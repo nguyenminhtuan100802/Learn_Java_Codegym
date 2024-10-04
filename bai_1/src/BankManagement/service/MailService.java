@@ -1,17 +1,14 @@
-package BankManagement.management;
+package BankManagement.service;
 
-import BankManagement.entity.User;
 import BankManagement.utility.TextColor.TextColor;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Scanner;
 
-public class MailManagement {
+public class MailService {
     private static final String FROM_EMAIL = "tuanminhnguyen100802@gmail.com";
     private static final String PASSWORD = "ypyy qyef zciq cbxw";
 

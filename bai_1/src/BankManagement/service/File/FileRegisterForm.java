@@ -1,14 +1,13 @@
-package BankManagement.management.FileManagement;
+package BankManagement.service.File;
 
 import BankManagement.entity.RegisterForm;
 
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.List;
 
-public class FileRegisterFormManagement implements FileManagement<List<RegisterForm>>{
-    public static FileRegisterFormManagement getInstance(){
-        return new FileRegisterFormManagement();
+public class FileRegisterForm implements File<List<RegisterForm>> {
+    public static FileRegisterForm getInstance(){
+        return new FileRegisterForm();
     }
 
     @Override

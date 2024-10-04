@@ -4,10 +4,11 @@ public interface UserChoiceHome {
     String DEPOSIT_MONEY = "1";
     String WITHDRAW_MONEY = "2";
     String TRANSACT_MONEY = "3";
-    String SET_UP_PIN_ACCOUNT = "4";
-    String CHANGE_PIN_ACCOUNT = "5";
-    String CHANGE_PASSWORD = "6";
+    String SAVING_MONEY = "4";
+    String RECHARGE_PHONE = "5";
+    String PAY_BILLS = "6";
     String SHOW_USER_INFORMATION = "7";
     String SHOW_TRANSACTION_HISTORY = "8";
-    String RETURN_LOGIN = "10";
+    String SECURITY = "9";
+    String RETURN_LOGIN = "0";
 }

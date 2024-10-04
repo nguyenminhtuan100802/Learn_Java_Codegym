@@ -1,14 +1,19 @@
 package BankManagement.menu.Admin;
 
-import BankManagement.management.AdminManagement;
+import BankManagement.management.UserManagement;
+import BankManagement.service.AdminService;
+import BankManagement.menu.Menu;
 import BankManagement.utility.Choice.Choice;
 import BankManagement.utility.ChoiceFromUser.AdminChoiceFind;
 import BankManagement.utility.TextColor.TextColor;
 
 import java.util.Scanner;
 
-public class AdminFindUserMenu {
-    public static void findUser() {
+public class AdminFindUserMenu implements Menu {
+    public static AdminFindUserMenu getInstance() {
+        return new AdminFindUserMenu();
+    }
+    public void displayMenu() {
         boolean isExist = false;
         while (!isExist) {
             System.out.println("=================" + TextColor.YELLOW + " ĐĂNG NHẬP > TRANG CHỦ (Quản trị viên) > TÌM NGƯỜI DÙNG (Quản trị viên) " + TextColor.END_COLOR + "=================");
@@ -23,17 +28,17 @@ public class AdminFindUserMenu {
 
             switch (Choice.find) {
                 case AdminChoiceFind.FIND_BY_FULL_NAME:
-                    AdminManagement.findUserByName();
+                    UserManagement.findUserByName();
                     break;
                 case AdminChoiceFind.FIND_BY_PHONE_NUMBER:
-                    AdminManagement.findUserByPhoneNumber();
+                    UserManagement.findUserByPhoneNumber();
                     break;
                 case AdminChoiceFind.FIND_BY_USERNAME:
                     break;
                 case AdminChoiceFind.FIND_BY_EMAIL:
                     break;
                 case AdminChoiceFind.SHOW_ALL_USERS:
-                    AdminManagement.showAllUsers();
+                    UserManagement.showAllUsers();
                     break;
                 case AdminChoiceFind.RETURN_HOME:
                     isExist = true;

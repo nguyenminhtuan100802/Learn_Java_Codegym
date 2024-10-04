@@ -1,11 +1,11 @@
-package BankManagement.management;
+package BankManagement.service;
 
 import BankManagement.utility.TextColor.TextColor;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class InputDataManagement {
+public class InputDataService {
     public static String inputAndCheckEmail() {
         Pattern pattern = Pattern.compile("^[a-zA-Z][a-zA-Z0-9]+@gmail.com$");
         Pattern pattern1 = Pattern.compile("^[0-9]+@student.hcmute.edu.vn$");

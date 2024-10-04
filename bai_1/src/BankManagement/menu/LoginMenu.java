@@ -9,9 +9,12 @@ import BankManagement.utility.TextColor.TextColor;
 
 import java.util.Scanner;
 
-public class LoginMenu {
+public class LoginMenu implements Menu {
+    public static LoginMenu getInstance(){
+        return new LoginMenu();
+    }
 
-    public static void displayMenu() {
+    public void displayMenu() {
         boolean isExit = false;
         while (!isExit) {
             System.out.println("=================" + TextColor.YELLOW + " ĐĂNG NHẬP " + TextColor.END_COLOR + "=================");
@@ -28,10 +31,10 @@ public class LoginMenu {
             Choice.login = new Scanner(System.in).nextLine();
             switch (Choice.login) {
                 case ChoiceLogin.LOGIN_AS_ADMIN:
-                    AdminMenu.displayMenu();
+                    AdminMenu.getInstance().displayMenu();
                     break;
                 case ChoiceLogin.LOGIN_AS_USER:
-                    UserMenu.displayMenu();
+                    UserMenu.getInstance().displayMenu();
                     break;
                 case ChoiceLogin.RESET_PASSWORD:
                     UserManagement.resetPassword();
