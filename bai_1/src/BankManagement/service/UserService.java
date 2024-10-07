@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class UserService {
     public static User verifyLogin() {
-        System.out.print("Enter your username:");
+        System.out.print("Nhập tên đăng nhập của bạn:");
         String username = (new Scanner(System.in)).nextLine();
-        System.out.print("Enter your password:");
+        System.out.print("Nhập mật khẩu của bạn:");
         String password = (new Scanner(System.in)).nextLine();
 
         for (int i = 0; i < UserManagement.getUserArrayList().size(); i++) {
