@@ -4,6 +4,7 @@ public class User extends Account{
     private String fullName;
     private String phoneNumber;
     private String email;
+    public User() {}
     public User(String fullName, String phoneNumber, String email) {
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
@@ -50,7 +51,7 @@ public class User extends Account{
 
     @Override
     public String toString() {
-        return "fullName: " + fullName + " || phoneNumber: " + phoneNumber + " || id: " + id + " || username: " + username + " || password: " + password;
+        return "fullName: " + fullName + " || phoneNumber: " + phoneNumber + " || id: " + id + " || username: " + username + " || password: " + password + " || balance: " + balance ;
     }
 
 }

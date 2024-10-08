@@ -1,11 +1,8 @@
 package BankManagement.management;
 
 import BankManagement.entity.User;
-import BankManagement.service.FileService;
-import BankManagement.service.InputDataService;
-import BankManagement.service.MailService;
+import BankManagement.service.*;
 import BankManagement.constant.TextColor;
-import BankManagement.service.MenuService;
 
 
 import java.util.ArrayList;
@@ -226,9 +223,9 @@ public class UserManagement {
             System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s %-30s%n",
                     "| " + TransactionManagement.getTransactionList().get(j).getUserTransact(),
                     "| " + TransactionManagement.getTransactionList().get(j).getId(),
-                    "| " + TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney(),
-                    "| " + TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction(),
-                    "| " + TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction(),
+                    "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney()),
+                    "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction()),
+                    "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction()),
                     "| " + TransactionManagement.getTransactionList().get(j).getDescription(),
                     "|");
         }
@@ -306,8 +303,12 @@ public class UserManagement {
                 "| " + user.getEmail(),
                 "| " + user.getUsername(),
                 "| " + user.getPassword(),
-                "| " + user.getBalance(),
+                "| " + FormatMoneyService.formatMoney(user.getBalance()),
                 "|");
+        FileService.saveAndLoadData();
+//        for (int i = 0; i < UserManagement.getUserArrayList().size(); i++) {
+//            System.out.println(UserManagement.getUserArrayList().get(i));
+//        }
     }
 
     public static void showUserTransactionHistory(User user) {
@@ -322,9 +323,9 @@ public class UserManagement {
                 System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s %-30s%n",
                         "| " + TransactionManagement.getTransactionList().get(j).getUserTransact(),
                         "| " + TransactionManagement.getTransactionList().get(j).getId(),
-                        "| " + TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney(),
-                        "| " + TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction(),
-                        "| " + TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction(),
+                        "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney()),
+                        "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction()),
+                        "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction()),
                         "| " + TransactionManagement.getTransactionList().get(j).getDescription(),
                         "|");
             }
