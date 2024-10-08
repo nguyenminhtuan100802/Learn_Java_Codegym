@@ -2,10 +2,9 @@ package BankManagement.menu;
 
 import BankManagement.management.RegisterFormManagement;
 import BankManagement.management.UserManagement;
-import BankManagement.menu.Admin.AdminMenu;
-import BankManagement.utility.Choice.Choice;
-import BankManagement.utility.ChoiceFromUser.ChoiceLogin;
-import BankManagement.utility.TextColor.TextColor;
+import BankManagement.utility.Choice;
+import BankManagement.constant.LoginChoice;
+import BankManagement.constant.TextColor;
 
 import java.util.Scanner;
 
@@ -26,25 +25,25 @@ public class LoginMenu implements Menu {
             System.out.println("6. Chọn ngôn ngữ");
             System.out.println("7. Tìm điểm giao dịch");
             System.out.println("8. Tra cứu tỷ giá");
-            System.out.println("10. Đăng xuất");
+            System.out.println("0. Đăng xuất");
             System.out.print("Nhập lựa chọn của bạn:");
             Choice.login = new Scanner(System.in).nextLine();
             switch (Choice.login) {
-                case ChoiceLogin.LOGIN_AS_ADMIN:
+                case LoginChoice.LOGIN_AS_ADMIN:
                     AdminMenu.getInstance().displayMenu();
                     break;
-                case ChoiceLogin.LOGIN_AS_USER:
+                case LoginChoice.LOGIN_AS_USER:
                     UserMenu.getInstance().displayMenu();
                     break;
-                case ChoiceLogin.RESET_PASSWORD:
+                case LoginChoice.RESET_PASSWORD:
                     UserManagement.resetPassword();
                     break;
-                case ChoiceLogin.REGISTER_USER:
+                case LoginChoice.REGISTER_USER:
                     RegisterFormManagement.addNewRegisterForm();
                     break;
-                case ChoiceLogin.SUPPORT:
+                case LoginChoice.SUPPORT:
                     break;
-                case ChoiceLogin.EXIT:
+                case LoginChoice.EXIT:
                     isExit = true;
                     break;
                 default:

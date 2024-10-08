@@ -2,9 +2,9 @@ package BankManagement.menu;
 
 import BankManagement.entity.User;
 import BankManagement.management.UserManagement;
-import BankManagement.utility.Choice.Choice;
-import BankManagement.utility.ChoiceFromUser.UserChoiceSecurity;
-import BankManagement.utility.TextColor.TextColor;
+import BankManagement.utility.Choice;
+import BankManagement.constant.UserSecurityChoice;
+import BankManagement.constant.TextColor;
 
 
 import java.util.Scanner;
@@ -21,16 +21,16 @@ public class SecurityMenu {
             System.out.print("Nhập lựa chọn của bạn:");
             Choice.security = new Scanner(System.in).nextLine();
             switch (Choice.security) {
-                case UserChoiceSecurity.SET_UP_PIN_ACCOUNT:
+                case UserSecurityChoice.SET_UP_PIN_ACCOUNT:
                     UserManagement.setUpPinForAccount(user);
                     break;
-                case UserChoiceSecurity.CHANGE_PIN_ACCOUNT:
+                case UserSecurityChoice.CHANGE_PIN_ACCOUNT:
                     UserManagement.changePinForAccount(user);
                     break;
-                case UserChoiceSecurity.CHANGE_PASSWORD:
+                case UserSecurityChoice.CHANGE_PASSWORD:
                     UserManagement.changePasswordForAccount(user);
                     break;
-                case UserChoiceSecurity.RETURN_HOME:
+                case UserSecurityChoice.RETURN_HOME:
                     isExit = true;
                     break;
                 default:

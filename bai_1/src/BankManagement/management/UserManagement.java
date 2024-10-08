@@ -1,12 +1,11 @@
 package BankManagement.management;
 
 import BankManagement.entity.User;
-import BankManagement.service.File.FileService;
-import BankManagement.service.File.FileTransaction;
-import BankManagement.service.File.FileUser;
+import BankManagement.service.FileService;
 import BankManagement.service.InputDataService;
 import BankManagement.service.MailService;
-import BankManagement.utility.TextColor.TextColor;
+import BankManagement.constant.TextColor;
+import BankManagement.service.MenuService;
 
 
 import java.util.ArrayList;
@@ -39,23 +38,25 @@ public class UserManagement {
     public static void findUserByName() {
         System.out.print("Nhập tên người dùng bạn muốn tìm:");
         String inputUserFullName = new Scanner(System.in).nextLine();
-        System.out.println("------------------" + TextColor.BLUE + " Người dùng đã tìm thấy " + TextColor.END_COLOR + "------------------");
-        System.out.printf("%-20s %-15s %-15s %-30s %-30s%n", "Họ và tên", "Số điện thoại", "ID", "Tên người dùng", "Mật khẩu");
+        MenuService.moveMenuDown2Times();
+        System.out.println(MenuService.displayTab60Times() + TextColor.BLUE + " Người dùng đã tìm thấy " + TextColor.END_COLOR + MenuService.displayTab60Times());
+        System.out.printf("%-20s %-15s %-15s %-30s %-30s %-30s%n", "| Họ và tên", "| Số điện thoại", "| ID", "| Tên người dùng", "| Mật khẩu", "|");
         for (User user : UserManagement.getUserArrayList()) {
-            if (user.getFullName().equals(inputUserFullName)) {
-                System.out.printf("%-20s %-15s %-15s %-30s %-30s%n",
-                        user.getFullName(),
-                        user.getPhoneNumber(),
-                        user.getId(),
-                        user.getUsername(),
-                        user.getPassword());
+            if (user.getFullName().toLowerCase().contains(inputUserFullName.toLowerCase())) {
+                System.out.printf("%-20s %-15s %-15s %-30s %-30s %-30s%n",
+                        "| " + user.getFullName(),
+                        "| " + user.getPhoneNumber(),
+                        "| " + user.getId(),
+                        "| " + user.getUsername(),
+                        "| " + user.getPassword(),
+                        "|");
             }
         }
     }
 
     private static User findUserByPhoneNumber(String phoneNumber) {
         for (User user : UserManagement.getUserArrayList()) {
-            if (user.getPhoneNumber().equals(phoneNumber)) {
+            if (user.getPhoneNumber().contains(phoneNumber)) {
                 return user;
             }
         }
@@ -65,16 +66,18 @@ public class UserManagement {
     public static void findUserByPhoneNumber() {
         System.out.print("Nhập số điện thoại người dùng bạn muốn tìm:");
         String inputUserPhoneNumber = new Scanner(System.in).nextLine();
-        System.out.println("------------------" + TextColor.BLUE + " Người dùng đã tìm thấy " + TextColor.END_COLOR + "------------------");
-        System.out.printf("%-20s %-15s %-15s %-30s %-30s%n", "Họ và tên", "Số điện thoại", "ID", "Tên người dùng", "Mật khẩu");
+        MenuService.moveMenuDown2Times();
+        System.out.println(MenuService.displayTab60Times() + TextColor.BLUE + " Người dùng đã tìm thấy " + TextColor.END_COLOR + MenuService.displayTab60Times());
+        System.out.printf("%-20s %-15s %-15s %-30s %-30s %-30s%n", "| Họ và tên", "| Số điện thoại", "| ID", "| Tên người dùng", "| Mật khẩu", "|");
         for (User user : UserManagement.getUserArrayList()) {
-            if (user.getPhoneNumber().equals(inputUserPhoneNumber)) {
-                System.out.printf("%-20s %-15s %-15s %-30s %-30s%n",
-                        user.getFullName(),
-                        user.getPhoneNumber(),
-                        user.getId(),
-                        user.getUsername(),
-                        user.getPassword());
+            if (user.getPhoneNumber().contains(inputUserPhoneNumber)) {
+                System.out.printf("%-20s %-15s %-15s %-30s %-30s %-30s%n",
+                        "| " + user.getFullName(),
+                        "| " + user.getPhoneNumber(),
+                        "| " + user.getId(),
+                        "| " + user.getUsername(),
+                        "| " + user.getPassword(),
+                        "|");
             }
         }
     }
@@ -184,18 +187,22 @@ public class UserManagement {
     }
 
     public static void showAllUsers() {
+        MenuService.moveMenuDown2Times();
         FileService.saveAndLoadData();
-        System.out.println("------------------" + TextColor.BLUE + " Danh sách người dùng " + TextColor.END_COLOR + "------------------");
-        System.out.printf("%-30s %-15s %-40s %-30s %-30s%n",
-                "Họ và tên", "Số điện thoại", "Email", "Tên người dùng", "Mật khẩu");
+        System.out.println(MenuService.displayTab60Times() + TextColor.BLUE + " Danh sách người dùng " + TextColor.END_COLOR + MenuService.displayTab60Times());
+        System.out.println(MenuService.tab160Times());
+        System.out.printf("%-30s %-15s %-40s %-30s %-30s %-30s%n",
+                "| Họ và tên", "| Số điện thoại", "| Email", "| Tên người dùng", "| Mật khẩu", "|");
         for (User user : UserManagement.getUserArrayList()) {
-            System.out.printf("%-30s %-15s %-40s %-30s %-30s%n",
-                    user.getFullName(),
-                    user.getPhoneNumber(),
-                    user.getEmail(),
-                    user.getUsername(),
-                    user.getPassword());
+            System.out.printf("%-30s %-15s %-40s %-30s %-30s %-30s%n",
+                    "| " + user.getFullName(),
+                    "| " + user.getPhoneNumber(),
+                    "| " + user.getEmail(),
+                    "| " + user.getUsername(),
+                    "| " + user.getPassword(),
+                    "|");
         }
+        System.out.println(MenuService.tab160Times());
     }
 
     public static void deleteAllUsers() {
@@ -211,18 +218,19 @@ public class UserManagement {
 
     public static void showAllUserTransactionsHistory() {
         FileService.saveAndLoadData();
-
-        System.out.println("------------------" + TextColor.BLUE + " Lịch sử giao dịch của tất cả người dùng " + TextColor.END_COLOR + "------------------");
-        System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s%n", "Tài khoản", "ID giao dịch", "Giao dịch", "Số dư trước giao dịch", "Số dư sau giao dịch", "Mô tả");
-
+        MenuService.moveMenuDown2Times();
+        System.out.println(MenuService.displayTab60Times() + TextColor.BLUE + " Lịch sử giao dịch của tất cả người dùng " + TextColor.END_COLOR + MenuService.displayTab60Times());
+        System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s %-30s%n",
+                "| Tài khoản", "| ID giao dịch", "| Giao dịch", "| Số dư trước giao dịch", "| Số dư sau giao dịch", "| Mô tả", "|");
         for (int j = 0; j < TransactionManagement.getTransactionList().size(); j++) {
-            System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s%n",
-                    TransactionManagement.getTransactionList().get(j).getUserTransact(),
-                    TransactionManagement.getTransactionList().get(j).getId(),
-                    TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney(),
-                    TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction(),
-                    TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction(),
-                    TransactionManagement.getTransactionList().get(j).getDescription());
+            System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s %-30s%n",
+                    "| " + TransactionManagement.getTransactionList().get(j).getUserTransact(),
+                    "| " + TransactionManagement.getTransactionList().get(j).getId(),
+                    "| " + TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney(),
+                    "| " + TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction(),
+                    "| " + TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction(),
+                    "| " + TransactionManagement.getTransactionList().get(j).getDescription(),
+                    "|");
         }
     }
 
@@ -289,31 +297,36 @@ public class UserManagement {
 
     public static void showUserInformation(User user) {
         FileService.saveAndLoadData();
-
-        System.out.println("------------------" + TextColor.BLUE + " Thông tin của bạn " + TextColor.END_COLOR + "------------------");
-        System.out.printf("%-30s %-15s %-40s %-30s %-30s%n", "| Họ tên", "| Số điện thoại", "| Email", "| Tài khoản", "| Mật khẩu");
-        System.out.printf("%-30s %-15s %-40s %-30s %-30s%n",
+        MenuService.moveMenuDown2Times();
+        System.out.println(MenuService.displayTab60Times() + TextColor.BLUE + " Thông tin của bạn " + TextColor.END_COLOR + MenuService.displayTab60Times());
+        System.out.printf("%-30s %-15s %-40s %-30s %-30s %-30s %-30s%n", "| Họ tên", "| Số điện thoại", "| Email", "| Tài khoản", "| Mật khẩu", "| Số dư", "|");
+        System.out.printf("%-30s %-15s %-40s %-30s %-30s %-30s %-30s%n",
                 "| " + user.getFullName(),
                 "| " + user.getPhoneNumber(),
                 "| " + user.getEmail(),
                 "| " + user.getUsername(),
-                "| " + user.getPassword());
+                "| " + user.getPassword(),
+                "| " + user.getBalance(),
+                "|");
     }
 
     public static void showUserTransactionHistory(User user) {
         FileService.saveAndLoadData();
+        MenuService.moveMenuDown2Times();
         System.out.println("------------------" + TextColor.BLUE + " Lịch sử giao dịch của bạn " + TextColor.END_COLOR + "------------------");
-        System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s%n", "| Tài khoản", "| Mã giao dịch", "| Giao dịch", "| Số dư trước giao dịch", "| Số dư sau giao dịch", "| Mô tả");
+        System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s %-30s%n",
+                "| Tài khoản", "| Mã giao dịch", "| Giao dịch", "| Số dư trước giao dịch", "| Số dư sau giao dịch", "| Mô tả", "|");
 
         for (int j = 0; j < TransactionManagement.getTransactionList().size(); j++) {
             if (TransactionManagement.getTransactionList().get(j).getUserTransact().equals(user.getPhoneNumber())) {
-                System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s%n",
+                System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s %-30s%n",
                         "| " + TransactionManagement.getTransactionList().get(j).getUserTransact(),
                         "| " + TransactionManagement.getTransactionList().get(j).getId(),
                         "| " + TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney(),
                         "| " + TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction(),
                         "| " + TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction(),
-                        "| " + TransactionManagement.getTransactionList().get(j).getDescription());
+                        "| " + TransactionManagement.getTransactionList().get(j).getDescription(),
+                        "|");
             }
         }
     }

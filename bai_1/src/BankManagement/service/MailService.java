@@ -1,6 +1,6 @@
 package BankManagement.service;
 
-import BankManagement.utility.TextColor.TextColor;
+import BankManagement.constant.TextColor;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

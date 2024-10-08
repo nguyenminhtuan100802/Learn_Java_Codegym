@@ -1,6 +1,6 @@
 package BankManagement.service;
 
-import BankManagement.utility.TextColor.TextColor;
+import BankManagement.constant.TextColor;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;

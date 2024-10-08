@@ -4,8 +4,7 @@ import BankManagement.entity.Transaction;
 import BankManagement.entity.User;
 import BankManagement.management.TransactionManagement;
 import BankManagement.management.UserManagement;
-import BankManagement.service.File.FileService;
-import BankManagement.utility.TextColor.TextColor;
+import BankManagement.constant.TextColor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +20,7 @@ public class AccountService {
         if (user.getPin().equals(inputPin)) {
             System.out.println(TextColor.BLUE + "Gửi tiền thành công, vui lòng kiểm tra tài khoản của bạn" + TextColor.END_COLOR);
             user.setBalance(user.getBalance() + inputAmountOfMoney);
+            FileService.saveAndLoadData();
 
             TransactionManagement.addTransaction(new Transaction(
                     user.getPhoneNumber(),
@@ -48,6 +48,7 @@ public class AccountService {
             if (user.getPin().equals(inputPin)) {
                 System.out.println(TextColor.BLUE + "Rút tiền thành công, vui lòng kiểm tra tài khoản của bạn" + TextColor.END_COLOR);
                 user.setBalance(user.getBalance() - inputAmountOfMoney);
+                FileService.saveAndLoadData();
 
                 TransactionManagement.addTransaction(new Transaction(
                         user.getPhoneNumber(),
@@ -89,6 +90,7 @@ public class AccountService {
                         System.out.println(TextColor.BLUE + "Giao dịch thành công, vui lòng kiểm tra tài khoản của bạn" + TextColor.END_COLOR);
                         userSend.setBalance(userSend.getBalance() - inputAmountOfMoney);
                         user.setBalance(user.getBalance() + inputAmountOfMoney);
+                        FileService.saveAndLoadData();
 
                         TransactionManagement.addTransaction(new Transaction(
                                 userSend.getId(),
@@ -118,5 +120,4 @@ public class AccountService {
             System.out.println(TextColor.RED + "<!> Không tìm thấy người dùng" + TextColor.END_COLOR);
         }
     }
-
 }

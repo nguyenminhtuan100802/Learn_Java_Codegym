@@ -2,7 +2,7 @@ package BankManagement.service;
 
 import BankManagement.entity.User;
 import BankManagement.management.UserManagement;
-import BankManagement.utility.TextColor.TextColor;
+import BankManagement.constant.TextColor;
 
 import java.util.Scanner;
 

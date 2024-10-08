@@ -1,7 +1,7 @@
 package BankManagement.management;
 
 import BankManagement.entity.RegisterForm;
-import BankManagement.service.File.FileRegisterForm;
+import BankManagement.service.RegisterFileService;
 import BankManagement.service.InputDataService;
 
 
@@ -24,7 +24,7 @@ public class RegisterFormManagement {
         String userEmail = InputDataService.inputAndCheckEmail();
 
         registerFormArrayList.add(new RegisterForm(userFullName, userPhoneNumber, userEmail));
-        FileRegisterForm.getInstance().saveToFile(registerFormArrayList);
+        RegisterFileService.getInstance().saveToFile(registerFormArrayList);
     }
     public static void showRegisterForms() {
         for (RegisterForm registerForm : registerFormArrayList) {

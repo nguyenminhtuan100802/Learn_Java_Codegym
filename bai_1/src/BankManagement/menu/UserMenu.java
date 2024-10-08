@@ -3,11 +3,12 @@ package BankManagement.menu;
 import BankManagement.entity.User;
 import BankManagement.management.UserManagement;
 import BankManagement.service.AccountService;
-import BankManagement.service.File.FileService;
+import BankManagement.service.FileService;
+import BankManagement.service.MenuService;
 import BankManagement.service.UserService;
-import BankManagement.utility.Choice.Choice;
-import BankManagement.utility.ChoiceFromUser.UserChoiceHome;
-import BankManagement.utility.TextColor.TextColor;
+import BankManagement.utility.Choice;
+import BankManagement.constant.UserHomeChoice;
+import BankManagement.constant.TextColor;
 
 import java.util.Scanner;
 
@@ -22,6 +23,7 @@ public class UserMenu implements Menu {
         if ((user = UserService.verifyLogin()) != null) {
             boolean isExit = false;
             while (!isExit) {
+                MenuService.refreshMenu();
                 System.out.println("=================" + TextColor.YELLOW + " ĐĂNG NHẬP > TRANG CHỦ (Người dùng) " + TextColor.END_COLOR + "=================");
                 System.out.println("1. Nạp tiền");
                 System.out.println("2. Rút tiền");
@@ -36,31 +38,31 @@ public class UserMenu implements Menu {
                 System.out.print("Nhập lựa chọn của bạn:");
                 Choice.home = new Scanner(System.in).nextLine();
                 switch (Choice.home) {
-                    case UserChoiceHome.DEPOSIT_MONEY:
+                    case UserHomeChoice.DEPOSIT_MONEY:
                         AccountService.deposit(user);
                         break;
-                    case UserChoiceHome.WITHDRAW_MONEY:
+                    case UserHomeChoice.WITHDRAW_MONEY:
                         AccountService.withdraw(user);
                         break;
-                    case UserChoiceHome.TRANSACT_MONEY:
+                    case UserHomeChoice.TRANSACT_MONEY:
                         AccountService.transact(user);
                         break;
-                    case UserChoiceHome.SAVING_MONEY:
+                    case UserHomeChoice.SAVING_MONEY:
                         break;
-                    case UserChoiceHome.RECHARGE_PHONE:
+                    case UserHomeChoice.RECHARGE_PHONE:
                         break;
-                    case UserChoiceHome.PAY_BILLS:
+                    case UserHomeChoice.PAY_BILLS:
                         break;
-                    case UserChoiceHome.SHOW_USER_INFORMATION:
+                    case UserHomeChoice.SHOW_USER_INFORMATION:
                         UserManagement.showUserInformation(user);
                         break;
-                    case UserChoiceHome.SHOW_TRANSACTION_HISTORY:
+                    case UserHomeChoice.SHOW_TRANSACTION_HISTORY:
                         UserManagement.showUserTransactionHistory(user);
                         break;
-                    case UserChoiceHome.SECURITY:
+                    case UserHomeChoice.SECURITY:
                         SecurityMenu.displayMenu(user);
                         break;
-                    case UserChoiceHome.RETURN_LOGIN:
+                    case UserHomeChoice.RETURN_LOGIN:
                         isExit = true;
                         break;
                     default:
