@@ -20,11 +20,11 @@ public class TransactionFileService implements File<List<Transaction>> {
                 String fileName = "E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\BankManagement\\data\\transaction_history.txt";
                 FileWriter fileWriter = new FileWriter(fileName);
                 for (Transaction transaction : transactionList) {
-                    fileWriter.write(transaction.getUserTransact() + "-");
-                    fileWriter.write(transaction.getId() + "-");
-                    fileWriter.write(transaction.getAmountOfTransactMoney() + "-");
-                    fileWriter.write(transaction.getBalanceBeforeTransaction() + "-");
-                    fileWriter.write(transaction.getBalanceAfterTransaction() + "-");
+                    fileWriter.write(transaction.getUserTransact() + ",");
+                    fileWriter.write(transaction.getId() + ",");
+                    fileWriter.write(transaction.getAmountOfTransactMoney() + ",");
+                    fileWriter.write(transaction.getBalanceBeforeTransaction() + ",");
+                    fileWriter.write(transaction.getBalanceAfterTransaction() + ",");
                     fileWriter.write(transaction.getDescription() + "|\n");
                 }
                 fileWriter.flush();

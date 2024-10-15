@@ -20,12 +20,12 @@ public class UserFileService implements File<List<User>> {
                 String fileName = "E:\\Github Frontend\\Java\\Learn_Java_Codegym\\bai_1\\src\\BankManagement\\data\\user.txt";
                 FileWriter fileWriter = new FileWriter(fileName);
                 for (User user : userList) {
-                    fileWriter.write(user.getFullName() + "-");
-                    fileWriter.write(user.getPhoneNumber() + "-");
-                    fileWriter.write(user.getEmail() + "-");
-                    fileWriter.write(user.getUsername() + "-");
-                    fileWriter.write(user.getPassword() + "-");
-                    fileWriter.write(user.getPin() + "-");
+                    fileWriter.write(user.getFullName() + ",");
+                    fileWriter.write(user.getPhoneNumber() + ",");
+                    fileWriter.write(user.getEmail() + ",");
+                    fileWriter.write(user.getUsername() + ",");
+                    fileWriter.write(user.getPassword() + ",");
+                    fileWriter.write(user.getPin() + ",");
                     fileWriter.write(user.getBalance() + "|\n");
                 }
                 fileWriter.flush();

@@ -10,7 +10,7 @@ public enum UserFile {
     public static final int READING_PASSWORD = 4;
     public static final int READING_PIN = 5;
     public static final int READING_BALANCE = 6;
-    public static final char DATA_SEPARATION = '-';
+    public static final char DATA_SEPARATION = ',';
     public static final char END_ONE_LINE = '|';
     public static final char NEW_LINE = '\n';
 }

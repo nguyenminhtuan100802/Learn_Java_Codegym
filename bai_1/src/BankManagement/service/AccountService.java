@@ -24,7 +24,7 @@ public class AccountService {
 
             TransactionManagement.addTransaction(new Transaction(
                     user.getPhoneNumber(),
-                    DateTimeFormatter.ofPattern("HH:mm:ss,dd/MM/yyyy").format(LocalDateTime.now()),
+                    DateTimeFormatter.ofPattern("HH:mm:ss-dd/MM/yyyy").format(LocalDateTime.now()),
                     inputAmountOfMoney,
                     (user.getBalance() - inputAmountOfMoney),
                     user.getBalance(),
@@ -52,8 +52,8 @@ public class AccountService {
 
                 TransactionManagement.addTransaction(new Transaction(
                         user.getPhoneNumber(),
-                        DateTimeFormatter.ofPattern("HH:mm:ss,dd/MM/yyyy").format(LocalDateTime.now()),
-                        inputAmountOfMoney,
+                        DateTimeFormatter.ofPattern("HH:mm:ss-dd/MM/yyyy").format(LocalDateTime.now()),
+                        -inputAmountOfMoney,
                         (user.getBalance() + inputAmountOfMoney),
                         user.getBalance(),
                         "Rút tiền từ người dùng"));
@@ -75,7 +75,7 @@ public class AccountService {
         for (User user : UserManagement.getUserArrayList()) {
             if (user.getPhoneNumber().equals(inputId)) {
                 isFound = true;
-                System.out.println(">>" + user.getUsername());
+                System.out.println(">>" + user.getFullName());
                 System.out.print("Nhập số tiền bạn muốn chuyển: ");
                 double inputAmountOfMoney = (new Scanner(System.in)).nextDouble();
                 if (inputAmountOfMoney <= userSend.getBalance()) {
@@ -83,6 +83,9 @@ public class AccountService {
                     String inputUserSendDescription = (new Scanner(System.in)).nextLine();
                     if (inputUserSendDescription.isEmpty()) {
                         inputUserSendDescription = userSend.getFullName() + " gửi tiền";
+                    }
+                    else {
+                        inputUserSendDescription = userSend.getFullName() + ": " + inputUserSendDescription;
                     }
                     System.out.print("Nhập mã PIN của bạn để hoàn tất giao dịch: ");
                     String inputPin = (new Scanner(System.in)).nextLine();
@@ -94,15 +97,15 @@ public class AccountService {
 
                         TransactionManagement.addTransaction(new Transaction(
                                 userSend.getId(),
-                                DateTimeFormatter.ofPattern("HH:mm:ss,dd/MM/yyyy").format(LocalDateTime.now()),
-                                inputAmountOfMoney,
+                                DateTimeFormatter.ofPattern("HH:mm:ss-dd/MM/yyyy").format(LocalDateTime.now()),
+                                -inputAmountOfMoney,
                                 (userSend.getBalance() + inputAmountOfMoney),
                                 userSend.getBalance(),
                                 inputUserSendDescription));
 
                         TransactionManagement.addTransaction(new Transaction(
                                 user.getId(),
-                                DateTimeFormatter.ofPattern("HH:mm:ss,dd/MM/yyyy").format(LocalDateTime.now()),
+                                DateTimeFormatter.ofPattern("HH:mm:ss-dd/MM/yyyy").format(LocalDateTime.now()),
                                 inputAmountOfMoney,
                                 (user.getBalance() - inputAmountOfMoney),
                                 user.getBalance(),

@@ -1,6 +1,7 @@
 package BankManagement.menu;
 
 import BankManagement.management.UserManagement;
+import BankManagement.service.MenuService;
 import BankManagement.utility.Choice;
 import BankManagement.constant.AdminFindChoice;
 import BankManagement.constant.TextColor;
@@ -14,6 +15,7 @@ public class AdminFindUserMenu implements Menu {
     public void displayMenu() {
         boolean isExist = false;
         while (!isExist) {
+            MenuService.refreshMenu();
             System.out.println("=================" + TextColor.YELLOW + " ĐĂNG NHẬP > TRANG CHỦ (Quản trị viên) > TÌM NGƯỜI DÙNG (Quản trị viên) " + TextColor.END_COLOR + "=================");
             System.out.println("1. Tìm người dùng theo tên");
             System.out.println("2. Tìm người dùng theo số điện thoại");

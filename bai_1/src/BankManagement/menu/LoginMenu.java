@@ -2,6 +2,7 @@ package BankManagement.menu;
 
 import BankManagement.management.RegisterFormManagement;
 import BankManagement.management.UserManagement;
+import BankManagement.service.MenuService;
 import BankManagement.utility.Choice;
 import BankManagement.constant.LoginChoice;
 import BankManagement.constant.TextColor;
@@ -16,6 +17,7 @@ public class LoginMenu implements Menu {
     public void displayMenu() {
         boolean isExit = false;
         while (!isExit) {
+            MenuService.refreshMenu();
             System.out.println("=================" + TextColor.YELLOW + " ĐĂNG NHẬP " + TextColor.END_COLOR + "=================");
             System.out.println("1. Đăng nhập với quyền admin");
             System.out.println("2. Đăng nhập với quyền người dùng");

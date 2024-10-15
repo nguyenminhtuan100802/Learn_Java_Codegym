@@ -3,17 +3,19 @@ package BankManagement.menu;
 import BankManagement.management.UserManagement;
 import BankManagement.constant.AdminEditChoice;
 import BankManagement.constant.TextColor;
+import BankManagement.service.MenuService;
 import BankManagement.utility.Choice;
 
 import java.util.Scanner;
 
 public class AdminEditUserMenu implements Menu {
-    public static AdminMenu getInstance() {
-        return new AdminMenu();
+    public static AdminEditUserMenu getInstance() {
+        return new AdminEditUserMenu();
     }
     public void displayMenu() {
         boolean isExist = false;
         while (!isExist) {
+            MenuService.refreshMenu();
             System.out.println("=================" + TextColor.YELLOW + " ĐĂNG NHẬP > TRANG CHỦ (Quản trị viên) > CHỈNH SỬA NGƯỜI DÙNG (Quản trị viên) " + TextColor.END_COLOR + "=================");
             System.out.println("1. Chỉnh sửa tên");
             System.out.println("2. Chỉnh sửa số điện thoại");

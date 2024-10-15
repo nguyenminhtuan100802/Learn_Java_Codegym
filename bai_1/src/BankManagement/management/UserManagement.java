@@ -187,7 +187,6 @@ public class UserManagement {
         MenuService.moveMenuDown2Times();
         FileService.saveAndLoadData();
         System.out.println(MenuService.displayTab60Times() + TextColor.BLUE + " Danh sách người dùng " + TextColor.END_COLOR + MenuService.displayTab60Times());
-        System.out.println(MenuService.tab160Times());
         System.out.printf("%-30s %-15s %-40s %-30s %-30s %-30s%n",
                 "| Họ và tên", "| Số điện thoại", "| Email", "| Tên người dùng", "| Mật khẩu", "|");
         for (User user : UserManagement.getUserArrayList()) {
@@ -199,7 +198,6 @@ public class UserManagement {
                     "| " + user.getPassword(),
                     "|");
         }
-        System.out.println(MenuService.tab160Times());
     }
 
     public static void deleteAllUsers() {
@@ -217,10 +215,10 @@ public class UserManagement {
         FileService.saveAndLoadData();
         MenuService.moveMenuDown2Times();
         System.out.println(MenuService.displayTab60Times() + TextColor.BLUE + " Lịch sử giao dịch của tất cả người dùng " + TextColor.END_COLOR + MenuService.displayTab60Times());
-        System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s %-30s%n",
+        System.out.printf("%-15s %-35s %-20s %-30s %-30s %-60s %-30s%n",
                 "| Tài khoản", "| ID giao dịch", "| Giao dịch", "| Số dư trước giao dịch", "| Số dư sau giao dịch", "| Mô tả", "|");
         for (int j = 0; j < TransactionManagement.getTransactionList().size(); j++) {
-            System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s %-30s%n",
+            System.out.printf("%-15s %-35s %-20s %-30s %-30s %-60s %-30s%n",
                     "| " + TransactionManagement.getTransactionList().get(j).getUserTransact(),
                     "| " + TransactionManagement.getTransactionList().get(j).getId(),
                     "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney()),
@@ -305,7 +303,6 @@ public class UserManagement {
                 "| " + user.getPassword(),
                 "| " + FormatMoneyService.formatMoney(user.getBalance()),
                 "|");
-        FileService.saveAndLoadData();
 //        for (int i = 0; i < UserManagement.getUserArrayList().size(); i++) {
 //            System.out.println(UserManagement.getUserArrayList().get(i));
 //        }
@@ -314,20 +311,32 @@ public class UserManagement {
     public static void showUserTransactionHistory(User user) {
         FileService.saveAndLoadData();
         MenuService.moveMenuDown2Times();
-        System.out.println("------------------" + TextColor.BLUE + " Lịch sử giao dịch của bạn " + TextColor.END_COLOR + "------------------");
-        System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s %-30s%n",
+        System.out.println(MenuService.displayTab60Times() + TextColor.BLUE + " Lịch sử giao dịch của bạn " + TextColor.END_COLOR + MenuService.displayTab60Times());
+        System.out.printf("%-15s %-35s %-30s %-30s %-30s %-60s %-30s%n",
                 "| Tài khoản", "| Mã giao dịch", "| Giao dịch", "| Số dư trước giao dịch", "| Số dư sau giao dịch", "| Mô tả", "|");
 
         for (int j = 0; j < TransactionManagement.getTransactionList().size(); j++) {
             if (TransactionManagement.getTransactionList().get(j).getUserTransact().equals(user.getPhoneNumber())) {
-                System.out.printf("%-15s %-35s %-15s %-30s %-30s %-40s %-30s%n",
-                        "| " + TransactionManagement.getTransactionList().get(j).getUserTransact(),
-                        "| " + TransactionManagement.getTransactionList().get(j).getId(),
-                        "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney()),
-                        "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction()),
-                        "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction()),
-                        "| " + TransactionManagement.getTransactionList().get(j).getDescription(),
-                        "|");
+                if (TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney() >= 0){
+                    System.out.printf("%-15s %-35s %-30s %-30s %-30s %-60s %-30s%n",
+                            "| " + TransactionManagement.getTransactionList().get(j).getUserTransact(),
+                            "| " + TransactionManagement.getTransactionList().get(j).getId(),
+                            "| +" + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney()),
+                            "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction()),
+                            "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction()),
+                            "| " + TransactionManagement.getTransactionList().get(j).getDescription(),
+                            "|");
+                }
+                else {
+                    System.out.printf("%-15s %-35s %-30s %-30s %-30s %-60s %-30s%n",
+                            "| " + TransactionManagement.getTransactionList().get(j).getUserTransact(),
+                            "| " + TransactionManagement.getTransactionList().get(j).getId(),
+                            "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getAmountOfTransactMoney()),
+                            "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getBalanceBeforeTransaction()),
+                            "| " + FormatMoneyService.formatMoney(TransactionManagement.getTransactionList().get(j).getBalanceAfterTransaction()),
+                            "| " + TransactionManagement.getTransactionList().get(j).getDescription(),
+                            "|");
+                }
             }
         }
     }

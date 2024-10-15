@@ -9,7 +9,7 @@ public enum TransactionFile {
     public static final int BALANCE_BEFORE_TRANSACTION = 3;
     public static final int BALANCE_AFTER_TRANSACTION = 4;
     public static final int DESCRIPTION = 5;
-    public static final char DATA_SEPARATION = '-';
+    public static final char DATA_SEPARATION = ',';
     public static final char END_ONE_LINE = '|';
     public static final char NEW_LINE = '\n';
 }
